@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Read Your Denial Letter Like a Map | Let's Appeal</title>
+<meta name="description" content="Your health insurance denial letter contains your deadline, your claim number, and your appeal rights. Get the free guide that shows you exactly where to find each one.">
+<meta property="og:title" content="Read Your Denial Letter Like a Map | Let's Appeal">
+<meta property="og:description" content="Free guide: find your deadline, your claim number, and your appeal rights inside your own denial letter.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://letsappeal.com/start">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+  GOOGLE ADS CONVERSION TRACKING (uncomment + fill in when ready)
+  Follow the kit's tracking.md. Two pieces:
+  1. The gtag base snippet below (replace AW-XXXXXXXXXX)
+  2. The conversion event fired in the form handler (search for
+     "CONVERSION EVENT" further down in the script)
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXXX');
+</script>
+============================================================ -->
+
+<style>
+  :root {
+    --ink: #1B2A4A;
+    --paper: #FAFAF7;
+    --page: #F3F2ED;
+    --marker: #FFE566;
+    --body: #3D4657;
+    --muted: #6B7487;
+    --tint: #E9EEF6;
+    --line: #D9D6CC;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Public Sans', -apple-system, sans-serif;
+    background: var(--page);
+    color: var(--body);
+    line-height: 1.6;
+    font-size: 17px;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- header ---------- */
+  header {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    background: var(--page);
+  }
+  .brand {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .brand span { background: linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%); }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 64px 0 72px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(32px, 4.5vw, 46px);
+    line-height: 1.15;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  h1 .hl {
+    background: linear-gradient(transparent 60%, var(--marker) 60%, var(--marker) 95%, transparent 95%);
+  }
+
+  .hero p.lede {
+    font-size: 19px;
+    margin-bottom: 28px;
+    max-width: 44ch;
+  }
+
+  /* ---------- form ---------- */
+  .capture { max-width: 440px; }
+  .capture label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .field-row { display: flex; gap: 10px; }
+  input[type="email"] {
+    flex: 1;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: inherit;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+    min-width: 0;
+  }
+  input[type="email"]:focus {
+    outline: 3px solid var(--marker);
+    outline-offset: 1px;
+  }
+  button.cta {
+    padding: 14px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    color: var(--paper);
+    background: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+  button.cta:hover { background: #2A3D66; }
+  button.cta:focus-visible { outline: 3px solid var(--marker); outline-offset: 2px; }
+  button.cta:disabled { opacity: 0.6; cursor: wait; }
+
+  .form-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+  .form-msg {
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    display: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+  }
+  .form-msg.ok { display: block; background: var(--tint); color: var(--ink); }
+  .form-msg.err { display: block; background: #FBEAEA; color: #8A2B2B; }
+
+  /* ---------- the letter artifact ---------- */
+  .letter-stage { position: relative; }
+  .letter {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    box-shadow: 0 12px 32px rgba(27, 42, 74, 0.12), 0 2px 6px rgba(27, 42, 74, 0.08);
+    padding: 32px 30px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #2B2B2B;
+    transform: rotate(-0.6deg);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .letter .lh {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    font-size: 12.5px;
+  }
+  .letter .dim { color: #9A9A94; }
+  .letter p { margin-bottom: 12px; }
+
+  .mark {
+    position: relative;
+    white-space: nowrap;
+  }
+  .mark::before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: 8%;
+    bottom: 4%;
+    background: var(--marker);
+    z-index: -1;
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: sweep 0.7s ease-out forwards;
+  }
+  .mark-1::before { animation-delay: 0.5s; }
+  .mark-2::before { animation-delay: 1.1s; }
+  .mark-3::before { animation-delay: 1.7s; }
+  @keyframes sweep { to { transform: scaleX(1); } }
+
+  .annot {
+    position: absolute;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 5px 12px;
+    box-shadow: 0 2px 8px rgba(27, 42, 74, 0.15);
+    opacity: 0;
+    animation: pop 0.4s ease-out forwards;
+  }
+  .annot-1 { top: 18%; right: -8px; animation-delay: 0.9s; }
+  .annot-2 { top: 47%; left: -14px; animation-delay: 1.5s; }
+  .annot-3 { bottom: 12%; right: 2px; animation-delay: 2.1s; }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mark::before { animation: none; transform: scaleX(1); }
+    .annot { animation: none; opacity: 1; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 64px 0; }
+  section.alt { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(26px, 3.2vw, 34px);
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .sec-lede { font-size: 18px; max-width: 60ch; margin-bottom: 36px; }
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .card p { font-size: 15.5px; }
+  .card .tag {
+    display: inline-block;
+    font-family: 'Courier Prime', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--tint);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 12px;
+  }
+
+  /* ---------- honesty section ---------- */
+  .honesty {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .honesty ul { list-style: none; }
+  .honesty li {
+    padding: 10px 0 10px 30px;
+    position: relative;
+    font-size: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .honesty li:last-child { border-bottom: none; }
+  .honesty .yes li::before {
+    content: "✓";
+    position: absolute;
+    left: 4px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .honesty .no li::before {
+    content: "✕";
+    position: absolute;
+    left: 4px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .honesty h3 {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  /* ---------- bottom cta ---------- */
+  .bottom-cta { text-align: center; }
+  .bottom-cta .capture { margin: 0 auto; }
+  .bottom-cta h2 { margin-bottom: 10px; }
+  .bottom-cta .sec-lede { margin-left: auto; margin-right: auto; margin-bottom: 28px; }
+  .bottom-cta .capture label { text-align: left; }
+  .bottom-cta .form-note { text-align: center; }
+
+  /* ---------- footer ---------- */
+  footer {
+    background: var(--ink);
+    color: #B9C2D4;
+    padding: 40px 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  footer .fbrand {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--paper);
+    margin-bottom: 12px;
+  }
+  footer p { max-width: 72ch; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .hero { padding: 40px 0 56px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    .letter { transform: rotate(0deg); }
+    .annot-2 { left: -4px; }
+    .cols { grid-template-columns: 1fr; }
+    .honesty { grid-template-columns: 1fr; }
+    section { padding: 48px 0; }
+  }
+  @media (max-width: 480px) {
+    .field-row { flex-direction: column; }
+    button.cta { width: 100%; }
+    .letter { padding: 24px 18px; font-size: 12.5px; }
+    .annot { font-size: 11.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="https://letsappeal.com">Let's <span>Appeal</span></a>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Free guide, sent to your email</div>
+        <h1>Your denial letter already tells you <span class="hl">how to fight back.</span></h1>
+        <p class="lede">Your deadline, your claim number, and your appeal rights are printed inside the letter your insurer sent you. Most people never find them. This free guide shows you exactly where to look.</p>
+
+        <form class="capture" id="signup-form-top" novalidate>
+          <label for="email-top">Email address</label>
+          <div class="field-row">
+            <input type="email" id="email-top" name="email" placeholder="you@example.com" required autocomplete="email">
+            <button type="submit" class="cta">Send me the free guide</button>
+          </div>
+          <div class="form-msg" role="status" aria-live="polite"></div>
+          <p class="form-note">You'll get the guide plus early access when the full course opens. No spam. Unsubscribe anytime.</p>
+        </form>
+      </div>
+
+      <div class="letter-stage" aria-hidden="true">
+        <div class="letter">
+          <div class="lh">Notice of Adverse Benefit Determination</div>
+          <p class="dim">RE: Claim decision for services on file</p>
+          <p>Claim Number: <span class="mark mark-1">CLM-2026-084512</span></p>
+          <p>After review, this claim has been denied. Reason code 197: service determined not medically necessary under your plan.</p>
+          <p><span class="mark mark-2">You have the right to appeal this decision.</span> Your request must be received within the timeframe described below.</p>
+          <p>Appeals must be filed within <span class="mark mark-3">the period stated in this notice</span> of the date you received this letter.</p>
+          <p class="dim">For questions, contact Member Services at the number on your ID card.</p>
+        </div>
+        <div class="annot annot-1">your claim number</div>
+        <div class="annot annot-2">your appeal rights</div>
+        <div class="annot annot-3">your deadline lives here</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= WHAT YOU GET ================= -->
+  <section class="alt">
+    <div class="wrap">
+      <h2>What's in the free guide</h2>
+      <p class="sec-lede">"Read Your Denial Letter Like a Map" is Module 0 of the Let's Appeal course. It's the same starting point every student uses, and it's yours free.</p>
+      <div class="cols">
+        <div class="card">
+          <span class="tag">FIND</span>
+          <h3>Locate the parts that matter</h3>
+          <p>Walk through your own letter and mark your claim number, the denial reason, and the appeal rights section. Every letter is required to include them.</p>
+        </div>
+        <div class="card">
+          <span class="tag">DECODE</span>
+          <h3>Understand why they said no</h3>
+          <p>Denial codes sound scary but they follow patterns. Learn what your reason code means and what it tells you about your next step.</p>
+        </div>
+        <div class="card">
+          <span class="tag">ACT</span>
+          <h3>Know your first move</h3>
+          <p>The guide ends with a short "do this now" checklist so you finish with your letter marked up and your deadline on your calendar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HONESTY ================= -->
+  <section>
+    <div class="wrap">
+      <h2>What this is, and what it isn't</h2>
+      <p class="sec-lede">You've been through enough. Here's the straight version.</p>
+      <div class="honesty">
+        <div class="yes">
+          <h3>This guide will</h3>
+          <ul>
+            <li>Show you where your deadline and appeal rights appear in your own letter</li>
+            <li>Point you to official government sources, not our opinions</li>
+            <li>Use plain language a stressed person can actually follow</li>
+            <li>Give you concrete steps you can take today</li>
+          </ul>
+        </div>
+        <div class="no">
+          <h3>This guide will never</h3>
+          <ul>
+            <li>Promise your appeal will succeed. Nobody can promise that.</li>
+            <li>Give you legal or medical advice</li>
+            <li>Ask you to pay anything. Module 0 is free, full stop.</li>
+            <li>Share or sell your email address</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOTTOM CTA ================= -->
+  <section class="alt bottom-cta">
+    <div class="wrap">
+      <h2>Your letter has a deadline in it.</h2>
+      <p class="sec-lede">The sooner you find it, the more options you have. Get the free guide and start reading your letter like a map.</p>
+      <form class="capture" id="signup-form-bottom" novalidate>
+        <label for="email-bottom">Email address</label>
+        <div class="field-row">
+          <input type="email" id="email-bottom" name="email" placeholder="you@example.com" required autocomplete="email">
+          <button type="submit" class="cta">Send me the free guide</button>
+        </div>
+        <div class="form-msg" role="status" aria-live="polite"></div>
+        <p class="form-note">You'll get the guide plus early access when the full course opens. No spam. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand">Let's Appeal</div>
+    <p>Educational information only, not legal, medical, or insurance advice. Always confirm details against your own plan documents and denial letter. Your denial letter and your plan documents are always the authority.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   SIGNUP ENDPOINT - Kit (ConvertKit) form "Module 0 Signup"
+   Form ID 9711205. Kit expects a form-encoded POST with the
+   field name "email_address". Subscribers land in Kit, which
+   sends the incentive email with the free Module 0 attached.
+============================================================ */
+const SIGNUP_ENDPOINT = "https://app.kit.com/forms/9711205/subscriptions";
+
+function wireForm(formId) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+  const input = form.querySelector('input[type="email"]');
+  const btn = form.querySelector('button');
+  const msg = form.querySelector('.form-msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.className = 'form-msg';
+    const email = input.value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      msg.textContent = "That email doesn't look complete. Check it and try again.";
+      msg.className = 'form-msg err';
+      input.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Sending...";
+
+    try {
+      const payload = new FormData();
+      payload.append('email_address', email);
+
+      const res = await fetch(SIGNUP_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: payload
+      });
+
+      if (!res.ok) throw new Error('Request failed');
+
+      msg.textContent = "Done. Check your inbox and click the confirmation link to get your guide.";
+      msg.className = 'form-msg ok';
+      form.reset();
+
+      /* ============================================================
+         CONVERSION EVENT (uncomment when gtag is enabled above;
+         replace the send_to value per the kit's tracking.md)
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-XXXXXXXXXX/YYYYYYYYYYYY'
+        });
+      }
+      ============================================================ */
+
+    } catch (err) {
+      msg.textContent = "Something went wrong sending your email. Try again in a moment.";
+      msg.className = 'form-msg err';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Send me the free guide";
+    }
+  });
+}
+
+wireForm('signup-form-top');
+wireForm('signup-form-bottom');
+</script>
+
+</body>
+</html>
