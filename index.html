@@ -21,6 +21,12 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18278890681');
+
+  // GA4, property "Let's Appeal" (547829345). Same Measurement ID as decoder.letsappeal.com
+  // and letsappeal.com, deliberately: all three are subdomains of one root domain, so GA4
+  // shares the _ga cookie across them and a visitor who moves between them stays one user.
+  // NOT the palmettagolf.com property - different business.
+  gtag('config', 'G-TBFMF11ME4');
 </script>
 
 <style>
@@ -526,11 +532,27 @@ function wireForm(formId) {
           'value': 1.0,
           'currency': 'USD'
         });
+
+        /* GA4, same moment. The Ads conversion above is for bidding; this one is for
+           reading the funnel. form_position says which of the two forms did the work,
+           which is the only question this page can answer about its own layout.
+           The email is NEVER passed - nothing identifying goes to analytics. */
+        gtag('event', 'guide_signup', {
+          form_position: formId === 'signup-form-top' ? 'top' : 'bottom'
+        });
       }
 
     } catch (err) {
       msg.textContent = "Something went wrong sending your email. Try again in a moment.";
       msg.className = 'form-msg err';
+
+      /* Without this, a Kit outage looks identical to nobody wanting the guide.
+         No error text and no email - just the fact that a submission failed. */
+      if (typeof gtag === 'function') {
+        gtag('event', 'signup_failed', {
+          form_position: formId === 'signup-form-top' ? 'top' : 'bottom'
+        });
+      }
     } finally {
       btn.disabled = false;
       btn.textContent = "Send me the free guide";
