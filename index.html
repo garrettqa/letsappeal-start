@@ -521,7 +521,15 @@ function wireForm(formId) {
 
       if (!res.ok) throw new Error('Request failed');
 
-      msg.textContent = "Done. Check your inbox for the confirmation email and click the button inside to get your guide. Not there in a few minutes? Check your junk or spam folder.";
+      /* Kit auto-confirms subscribers as of 2026-07-30, so there is no longer a confirmation
+         email to click and no post-confirmation redirect. This message used to tell people to
+         go and click a link that no longer gets sent.
+
+         Two ways to the guide now, deliberately. The link here gives it to them instantly while
+         they are still on the page, and the welcome sequence emails the same link within a
+         minute so they still have it tomorrow. innerHTML is safe here: the string is a literal,
+         nothing the visitor typed is interpolated into it. */
+      msg.innerHTML = 'Done. Here is your guide: <a href="https://start.letsappeal.com/guide.html">read Module 0 now</a>. A copy is on its way to your inbox too, so you will still have it later. Not there in a few minutes? Check your junk or spam folder.';
       msg.className = 'form-msg ok';
       form.reset();
 
