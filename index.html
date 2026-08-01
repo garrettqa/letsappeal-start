@@ -605,7 +605,7 @@ function wireForm(formId) {
            which is the only question this page can answer about its own layout.
            The email is NEVER passed - nothing identifying goes to analytics. */
         gtag('event', 'guide_signup', {
-          form_position: formId === 'signup-form-top' ? 'top' : 'bottom'
+          form_position: 'guide_secondary'
         });
       }
 
@@ -624,7 +624,7 @@ function wireForm(formId) {
          No error text and no email - just the fact that a submission failed. */
       if (typeof gtag === 'function') {
         gtag('event', 'signup_failed', {
-          form_position: formId === 'signup-form-top' ? 'top' : 'bottom'
+          form_position: 'guide_secondary'
         });
       }
     } finally {
@@ -634,7 +634,6 @@ function wireForm(formId) {
   });
 }
 
-wireForm('signup-form-top');
 wireForm('signup-form-bottom');
 </script>
 
