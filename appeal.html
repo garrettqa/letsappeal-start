@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Appeal Kit | Let's Appeal</title>
+<meta name="description" content="Ten questions. You get your deadline as a date, which rules govern your plan, a draft appeal letter, and the evidence checklist. Free, and we never ask you to upload your denial letter.">
+<meta property="og:title" content="Free Appeal Kit | Let's Appeal">
+<meta property="og:description" content="Your deadline as a date, which rules govern your plan, a draft appeal letter, and what to attach. Free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://start.letsappeal.com/appeal.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18278890681"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18278890681');
+  gtag('config', 'G-TBFMF11ME4');
+</script>
+
+<!-- Meta Pixel. Same hard rule as index.html: PageView and Lead only, no parameters.
+     Nothing the visitor answers in this tool is ever sent anywhere. -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1031029212882366');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1031029212882366&ev=PageView&noscript=1"/></noscript>
+
+<style>
+  :root{
+    --paper:#F4F1EA; --card:#FBF9F4; --ink:#1C1C1A; --muted:#6B675E;
+    --rule:#DAD5C9; --amber:#E8B84B; --accent:#8A6D1F; --red:#B4472F;
+    --shadow:0 1px 2px rgba(28,28,26,.05), 0 8px 24px rgba(28,28,26,.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Public Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:17px; line-height:1.6; padding:0 20px 90px;
+  }
+  .wrap{max-width:660px;margin:0 auto}
+  .serif{font-family:'Source Serif 4',Georgia,serif;font-weight:600;letter-spacing:-.3px}
+
+  /* header */
+  header{padding:26px 0 8px;display:flex;align-items:baseline;gap:12px}
+  .brand{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:17px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accent);text-decoration:none}
+  .tagline{font-size:13px;color:var(--muted)}
+
+  /* progress */
+  .prog{display:flex;gap:4px;margin:22px 0 30px}
+  .prog i{height:3px;flex:1;background:var(--rule);border-radius:2px;transition:background .25s}
+  .prog i.on{background:var(--amber)}
+  .prog i.done{background:var(--accent)}
+
+  /* screens */
+  .screen{display:none}
+  .screen.live{display:block;animation:fade .28s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  h1{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:38px;
+    line-height:1.12;letter-spacing:-.6px;margin-bottom:14px}
+  h2{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:24px;
+    letter-spacing:-.3px;margin:0 0 10px}
+  h3{font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 10px}
+  p{margin-bottom:14px}
+  .lede{font-size:19px;line-height:1.55;color:#33322E;margin-bottom:22px}
+  .small{font-size:14.5px;color:var(--muted)}
+  a{color:var(--accent)}
+
+  .qnum{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:8px}
+  .qtext{font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:27px;
+    line-height:1.25;letter-spacing:-.3px;margin-bottom:6px}
+  .qhelp{font-size:15px;color:var(--muted);margin-bottom:20px}
+
+  /* options */
+  .opts{display:flex;flex-direction:column;gap:9px;margin-bottom:8px}
+  .opt{display:block;width:100%;text-align:left;background:var(--card);
+    border:1px solid var(--rule);border-radius:10px;padding:15px 17px;
+    font:inherit;color:inherit;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .06s}
+  .opt:hover{border-color:#BFB69F;box-shadow:var(--shadow)}
+  .opt:active{transform:translateY(1px)}
+  .opt.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+  .opt b{display:block;font-weight:600}
+  .opt span{display:block;font-size:14.5px;color:var(--muted);margin-top:2px}
+
+  input[type=text],input[type=date],input[type=email],textarea{
+    width:100%;background:var(--card);border:1px solid var(--rule);border-radius:10px;
+    padding:14px 16px;font:inherit;color:inherit}
+  textarea{min-height:96px;resize:vertical}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+
+  .nav{display:flex;gap:10px;align-items:center;margin-top:22px}
+  .btn{background:var(--ink);color:var(--paper);border:0;border-radius:10px;
+    padding:14px 24px;font:inherit;font-weight:600;cursor:pointer;transition:opacity .15s}
+  .btn:hover{opacity:.88}
+  .btn[disabled]{opacity:.35;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--muted);padding:14px 6px;font-weight:400}
+  .btn.amber{background:var(--accent);color:#fff}
+
+  /* results */
+  .card{background:var(--card);border:1px solid var(--rule);border-radius:14px;
+    padding:24px;margin-bottom:18px;box-shadow:var(--shadow)}
+  .card.flag{border-color:var(--red);background:#FBF1EE}
+  .deadline{text-align:center;padding:30px 24px}
+  .deadline .days{font-family:'Source Serif 4',Georgia,serif;font-weight:600;
+    font-size:74px;line-height:1;letter-spacing:-2px;margin-bottom:4px}
+  .deadline .days.warn{color:var(--red)}
+  .deadline .dl{font-size:19px;font-weight:600;margin-bottom:6px}
+  .kv{border-top:1px solid var(--rule);padding-top:13px;margin-top:13px}
+  .kv:first-of-type{border:0;padding-top:0;margin-top:0}
+  .kv dt{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .kv dd{font-size:16.5px}
+  ol.check{margin:0;padding:0;list-style:none;counter-reset:c}
+  ol.check li{counter-increment:c;position:relative;padding-left:34px;margin-bottom:13px}
+  ol.check li:before{content:counter(c);position:absolute;left:0;top:1px;width:23px;height:23px;
+    border-radius:50%;background:var(--amber);color:var(--ink);font-size:13px;font-weight:600;
+    display:flex;align-items:center;justify-content:center}
+  .letter{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13.5px;line-height:1.75;
+    white-space:pre-wrap;background:#fff;border:1px solid var(--rule);border-radius:10px;
+    padding:20px;max-height:400px;overflow:auto}
+  .fill{background:#FDF0CE;padding:0 3px;border-radius:2px}
+  .upsell{background:var(--ink);color:#EDE9DF;border-radius:14px;padding:28px 26px;margin-top:26px}
+  .upsell h2{color:var(--paper)}
+  .upsell .small{color:#B0AA9C}
+  .upsell ul{margin:14px 0 0 20px}
+  .upsell li{margin-bottom:9px}
+  .upsell a.cta{display:inline-block;margin-top:20px;background:var(--amber);color:var(--ink);
+    text-decoration:none;font-weight:600;padding:14px 26px;border-radius:10px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .note{font-size:14.5px;color:var(--muted);border-left:3px solid var(--rule);padding-left:14px;margin:16px 0}
+  footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule);
+    font-size:14.5px;color:var(--muted)}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(90px);
+    background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:999px;
+    font-size:15px;transition:transform .25s;z-index:99}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:600px){
+    body{font-size:16px;padding:0 16px 70px}
+    h1{font-size:30px}
+    .qtext{font-size:23px}
+    .deadline .days{font-size:58px}
+    .card{padding:20px}
+    .letter{font-size:12.5px;padding:15px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="brand" href="/">Let's Appeal</a>
+  <span class="tagline">Free Appeal Kit</span>
+</header>
+
+<div class="prog" id="prog"></div>
+
+<!-- ============ INTRO ============ -->
+<section class="screen live" id="s-intro">
+  <h1>Ten questions. Then you will know your deadline, your argument, and what to attach.</h1>
+  <p class="lede">Most people lose an appeal on the calendar, not on the merits. This works out which clock you are on, which rules govern your plan, and drafts a letter you can send.</p>
+
+  <div class="card">
+    <h3>What you get, free</h3>
+    <ol class="check">
+      <li><b>Your deadline as an actual date</b>, counted from the date on your letter.</li>
+      <li><b>Which rulebook governs your plan</b>, and which agency can actually help. This is the thing most people get wrong.</li>
+      <li><b>A draft appeal letter</b>, built around the specific reason you were given.</li>
+      <li><b>The evidence checklist</b>: what to attach, in what order.</li>
+      <li><b>How to send it</b> so the date you sent it is provable.</li>
+    </ol>
+  </div>
+
+  <div class="note">
+    <b>We never ask you to upload your denial letter.</b> You read it, you answer questions about it. Nothing you type here is sent to us or stored anywhere. It stays in your browser, and closing this tab erases it.
+  </div>
+
+  <div class="nav">
+    <button class="btn" onclick="go(0)">Start, it takes about 3 minutes</button>
+  </div>
+  <p class="small" style="margin-top:14px">Educational information only. Not legal, medical or insurance advice. Your denial letter is always the authority.</p>
+</section>
+
+<!-- question screens injected here -->
+<div id="qhost"></div>
+
+<!-- ============ RESULTS ============ -->
+<section class="screen" id="s-out"></section>
+
+<footer>
+  <a href="/">Let's Appeal</a> &middot;
+  <a href="/privacy.html">Privacy</a> &middot;
+  <a href="/guarantee.html">30-day guarantee</a><br>
+  Educational information only. Not legal, medical or insurance advice.
+</footer>
+
+</div>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+/* ============================================================
+   FREE APPEAL KIT
+   Everything runs in the browser. Nothing is transmitted, nothing
+   is stored. No account, no upload, no server. That is deliberate:
+   it is the privacy promise on /privacy.html, and it is also the
+   reason this is faster than the tools that make you upload a PDF.
+
+   The letter is ASSEMBLED FROM A TEMPLATE, not generated by a model.
+   For the free tier that is the right call: it cannot invent a policy
+   number or a citation, it costs nothing, and it is instant. The
+   detailed letter inside the course is where a model earns its keep,
+   because by then there is a plan document to work from.
+   ============================================================ */
+
+var A = {};           // answers
+var STEP = -1;        // -1 = intro, 0..n-1 = questions, n = results
+
+var Q = [
+ {k:'stage', q:'Where are you in this?', help:'This changes which deadline applies.',
+  opts:[
+   ['first','Just been denied','The first denial letter has arrived'],
+   ['second','Already appealed once','And it came back denied again'],
+   ['unsure','Not sure','Pick this if the letter is confusing']
+  ]},
+
+ {k:'what', q:'What was denied?', help:'',
+  opts:[
+   ['treatment','A treatment or procedure',''],
+   ['med','A medication',''],
+   ['test','A test or scan',''],
+   ['stay','A hospital or facility stay',''],
+   ['amount','An amount on a bill','The care happened, they paid less than expected']
+  ]},
+
+ {k:'timing', q:'Was this decided before or after the care?', help:'A refusal before treatment is a prior authorisation denial, and it moves faster.',
+  opts:[
+   ['pre','Before. It was refused in advance','Prior authorisation'],
+   ['post','After. I already had the care','Post service'],
+   ['unsure','Not sure','']
+  ]},
+
+ {k:'reason', q:'What reason does the letter give?', help:'Use the wording closest to what is printed, even if it seems vague.',
+  opts:[
+   ['mn','Not medically necessary','The most common, and the most misunderstood'],
+   ['exp','Experimental or investigational',''],
+   ['nc','Not a covered benefit','Excluded under the plan'],
+   ['oon','Out of network',''],
+   ['doc','Insufficient documentation','Missing records or information'],
+   ['other','Something else, or it does not say','']
+  ]},
+
+ {k:'code', q:'Is there a denial or reason code?', help:'Optional. A short code or number, often near the reason. Skip if you cannot find one.',
+  input:'text', ph:'For example 197, CO-50, or leave blank'},
+
+ {k:'date', q:'What date is printed on the letter?', help:'Not the date you opened it. The date on the notice itself. This is what the clock runs from.',
+  input:'date'},
+
+ {k:'source', q:'How do you get this insurance?', help:'This decides which rules apply and who regulates it. It matters more than almost anything else here.',
+  opts:[
+   ['work','Through work','Mine or a family member’s employer'],
+   ['self','I bought it myself','Marketplace or direct from an insurer'],
+   ['medicare','Medicare',''],
+   ['medicaid','Medicaid',''],
+   ['unsure','Not sure','']
+  ]},
+
+ {k:'funding', q:'Has HR told you whether the plan is self-funded or fully insured?', help:'Identical denials follow different paths depending on this. Most people have never been told.',
+  onlyIf:function(){return A.source==='work'},
+  opts:[
+   ['self','Self-funded','The employer pays claims from its own money'],
+   ['fully','Fully insured','The employer buys coverage from an insurer'],
+   ['unknown','I do not know','Most common answer, and we will fix it']
+  ]},
+
+ {k:'doctor', q:'What did your doctor say about why this was needed?', help:'A sentence is plenty. It goes into the letter, so use your own words.',
+  input:'textarea', ph:'For example: she said the first medication failed and this was the next step'},
+
+ {k:'stated', q:'Does the letter say anything about a deadline?', help:'Look for a number of days, or a specific date, usually near the appeal rights section.',
+  input:'text', ph:'For example 180 days, or a date, or leave blank'}
+];
+
+/* ---- deadline rules. Federal floors. The letter always wins. ---- */
+function deadlineRule(){
+  var s = A.source;
+  if(s==='medicare') return {days:60,  label:'Medicare',
+    note:'Medicare Advantage reconsiderations are commonly 60 days from the notice.'};
+  if(s==='medicaid') return {days:60,  label:'Medicaid',
+    note:'Medicaid appeal windows are set by your state and are often 60 to 90 days. Your letter and your state agency are the authority.'};
+  if(s==='work')     return {days:180, label:'Employer plan',
+    note:'Plans covered by the federal rules give at least 180 days from the notice for an internal appeal.'};
+  if(s==='self')     return {days:180, label:'Individual or marketplace plan',
+    note:'Plans covered by the federal rules give at least 180 days from the notice for an internal appeal.'};
+  return {days:180, label:'Unconfirmed plan type',
+    note:'180 days is the common federal floor, but it is not universal. Confirm against your letter before relying on this.'};
+}
+
+function computeDeadline(){
+  var r = deadlineRule();
+  if(!A.date) return null;
+  var start = new Date(A.date + 'T00:00:00');
+  if(isNaN(start)) return null;
+  var due = new Date(start); due.setDate(due.getDate() + r.days);
+  var today = new Date(); today.setHours(0,0,0,0);
+  var left = Math.round((due - today) / 86400000);
+  return {rule:r, due:due, left:left,
+    dueStr: due.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})};
+}
+
+/* ---- who actually regulates this plan ---- */
+function regulator(){
+  var s=A.source, f=A.funding;
+  if(s==='medicare') return {who:'Medicare', body:'Appeals run through Medicare’s own levels, starting with reconsideration. 1-800-MEDICARE is the front door.', warn:''};
+  if(s==='medicaid') return {who:'Your state Medicaid agency', body:'Medicaid appeals run through your state, and you generally have the right to a state fair hearing.', warn:''};
+  if(s==='self')     return {who:'Your state insurance department', body:'Individual and marketplace plans are regulated by your state, and HealthCare.gov can point you to external review.', warn:''};
+  if(s==='work' && f==='self') return {who:'The US Department of Labor', body:'Self-funded employer plans sit under federal law. The Employee Benefits Security Administration oversees them: dol.gov/agencies/ebsa', warn:'Your state insurance department generally cannot help with a self-funded plan. People lose weeks complaining to a regulator that was never able to act.'};
+  if(s==='work' && f==='fully') return {who:'Your state insurance department', body:'A fully insured employer plan is regulated by the state your employer bought the policy in.', warn:''};
+  return {who:'Not yet determined', body:'Which agency can help depends on whether your employer’s plan is self-funded or fully insured. Until you know that, you cannot be sure who to escalate to.', warn:'This is worth finding out this week. The two-sentence email below gets you the answer.'};
+}
+
+/* ---- the argument that fits the reason given ---- */
+var ARG = {
+ mn:{name:'Not medically necessary',
+   means:'This almost never means a doctor decided the care was unnecessary. It means the paperwork did not match the insurer’s own written clinical policy, which is a real document with a number that insurers publish.',
+   move:'Ask for the specific clinical criteria they applied, then answer those criteria point by point rather than arguing in general terms.',
+   letter:'This decision states that the requested care is not medically necessary. I am requesting the specific clinical criteria and internal policy used to reach that conclusion, including the policy number and version, together with the credentials of the reviewer who made the determination. Once those criteria are provided I will address each one directly.'},
+ exp:{name:'Experimental or investigational',
+   means:'This label is applied far more broadly than most people expect, and it is often out of date with current practice.',
+   move:'Published clinical guidelines and professional society recommendations are the strongest counterweight, along with FDA status where relevant.',
+   letter:'This decision classifies the requested care as experimental or investigational. I am requesting the definition and the evidence standard applied, along with the policy number and version. Please also identify the specialty of the reviewer who applied it.'},
+ nc:{name:'Not a covered benefit',
+   means:'There is a real difference between something excluded by the plan and something merely limited by it. The plan document, not the denial letter, settles which one this is.',
+   move:'Get the Summary Plan Description and find the exact exclusion language being relied on.',
+   letter:'This decision states that the requested care is not a covered benefit. I am requesting the exact plan language relied upon, including the section and page of the plan document, and a copy of the Summary Plan Description if one has not already been provided.'},
+ oon:{name:'Out of network',
+   means:'Out-of-network denials can often be challenged where no in-network provider was reasonably available, where care was urgent, or where continuity of care applies.',
+   move:'Document what in-network options existed, or did not, at the time.',
+   letter:'This decision cites out-of-network status. I am requesting the list of in-network providers considered available for this service in my area at the time of service, and the plan language governing network adequacy and continuity of care.'},
+ doc:{name:'Insufficient documentation',
+   means:'This is the most fixable denial there is. Something was missing, not wrong.',
+   move:'Find out exactly what was missing, get it from the provider, and resubmit with it attached.',
+   letter:'This decision cites insufficient documentation. I am requesting a specific list of the documents or information that were missing or considered inadequate, so that they can be supplied.'},
+ other:{name:'Reason not clearly stated',
+   means:'A notice is generally required to state the specific reason for denial and the plan provision it relies on. A vague reason is itself something to challenge.',
+   move:'Request the specific reason and the plan provision in writing before arguing the merits.',
+   letter:'The notice does not state a specific clinical or contractual reason for this decision. I am requesting the specific reason for denial, the plan provision relied upon, and the complete claim file including any internal criteria applied.'}
+};
+
+/* ---- build the draft letter ---- */
+function buildLetter(){
+  var d = computeDeadline();
+  var arg = ARG[A.reason] || ARG.other;
+  var whatMap = {treatment:'a treatment or procedure',med:'a medication',test:'a test or scan',
+                 stay:'a hospital or facility stay',amount:'an amount billed for care I received'};
+  var what = whatMap[A.what] || 'the requested care';
+  var L = [];
+  L.push('[TODAY’S DATE]');
+  L.push('');
+  L.push('[INSURER NAME]');
+  L.push('[APPEALS ADDRESS FROM YOUR DENIAL LETTER]');
+  L.push('');
+  L.push('Re: Appeal of denied claim');
+  L.push('Member name: [YOUR FULL NAME]');
+  L.push('Member ID: [YOUR MEMBER ID]');
+  L.push('Claim or reference number: [FROM YOUR LETTER]');
+  if(A.code) L.push('Denial or reason code: ' + A.code);
+  L.push('Date of denial notice: ' + (A.date ? new Date(A.date+'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}) : '[DATE ON YOUR LETTER]'));
+  L.push('');
+  L.push('To whom it may concern,');
+  L.push('');
+  L.push('I am writing to appeal the decision described in the notice referenced above, which denied coverage for ' + what + '.');
+  L.push('');
+  L.push(arg.letter);
+  L.push('');
+  if(A.doctor && A.doctor.trim()){
+    L.push('On the clinical question, my treating provider advised the following: ' + A.doctor.trim().replace(/\s+$/,'') + ' I am requesting that this appeal be reviewed by a clinician in the same or a similar specialty.');
+    L.push('');
+  } else {
+    L.push('I am requesting that this appeal be reviewed by a clinician in the same or a similar specialty as the provider who recommended this care.');
+    L.push('');
+  }
+  L.push('In addition, please provide the complete claim file relating to this decision, including any internal guidelines, protocols or criteria relied upon, at no charge.');
+  L.push('');
+  L.push('[ATTACH YOUR SUPPORTING DOCUMENTS AND LIST THEM HERE]');
+  L.push('');
+  L.push('Please confirm in writing that this appeal has been received, and provide the date it was logged as received together with a reference number.');
+  L.push('');
+  L.push('Sincerely,');
+  L.push('');
+  L.push('[YOUR NAME]');
+  L.push('[PHONE]  [EMAIL]');
+  return L.join('\n');
+}
+
+/* ---- evidence checklist, tuned to the answers ---- */
+function checklist(){
+  var c = [];
+  c.push('<b>The denial letter itself.</b> Every page, including the back of the last page where appeal rights usually sit.');
+  if(A.reason==='mn' || A.reason==='exp')
+    c.push('<b>The insurer’s clinical policy for this service.</b> Ask for it by name in the letter above. This is the single most valuable document you can get, because it tells you the criteria you have to meet.');
+  if(A.reason==='nc')
+    c.push('<b>The Summary Plan Description.</b> The exclusion has to be written somewhere. Until you have read it, you are arguing against a summary of a rule rather than the rule.');
+  if(A.reason==='doc')
+    c.push('<b>Whatever was missing.</b> Ask them to list it specifically, then get exactly that from your provider.');
+  if(A.reason==='oon')
+    c.push('<b>Evidence about in-network availability.</b> Who was available, how far away, and how long the wait was.');
+  c.push('<b>Your medical records for the relevant dates.</b> Office notes, test results and imaging reports. Ask the records department in writing and name your HIPAA right of access.');
+  c.push('<b>A letter of support from the treating provider.</b> Short, specific, and pointed at the insurer’s stated reason rather than at general need.');
+  if(A.source==='work' && A.funding==='unknown')
+    c.push('<b>Confirmation of your plan type from HR.</b> Use the two-sentence email below. It decides who you can escalate to.');
+  c.push('<b>Proof of what you sent and when.</b> Certified mail with return receipt, or a portal confirmation screenshot.');
+  return c;
+}
+
+/* ---- upsell copy, specific to their answers ---- */
+function upsell(){
+  var arg = ARG[A.reason] || ARG.other;
+  var bits = [];
+  bits.push('The letter above asks for the criteria. <b>It cannot yet answer them</b>, because it does not have your insurer’s clinical policy in front of it. Answering those criteria point by point is what separates an appeal that gets read from one that gets filed.');
+  if(A.source==='work' && A.funding==='unknown')
+    bits.push('You also do not yet know whether your plan is self-funded or fully insured, which decides who can help you if the insurer says no again.');
+  if(A.stage==='second')
+    bits.push('You have already been denied twice, which means external review is the stage that matters now. It is a different process with a different packet, and it is where most people stop.');
+  return {arg:arg, bits:bits};
+}
+
+/* ================= rendering ================= */
+function activeQs(){ return Q.filter(function(q){ return !q.onlyIf || q.onlyIf(); }); }
+
+function renderProg(){
+  var qs = activeQs(), p = document.getElementById('prog'), h='';
+  for(var i=0;i<qs.length;i++){
+    var cls = STEP>i ? 'done' : (STEP===i ? 'on' : '');
+    h += '<i class="'+cls+'"></i>';
+  }
+  p.innerHTML = h;
+  p.style.display = (STEP<0) ? 'none' : 'flex';
+}
+
+function show(id){
+  var all = document.querySelectorAll('.screen');
+  for(var i=0;i<all.length;i++) all[i].classList.remove('live');
+  document.getElementById(id).classList.add('live');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function go(step){
+  var qs = activeQs();
+  if(step >= qs.length){ renderOut(); STEP = qs.length; renderProg(); return; }
+  STEP = step; renderProg();
+  var q = qs[step];
+  var host = document.getElementById('qhost');
+  var h = '<section class="screen live" id="s-q">';
+  h += '<div class="qnum">Question '+(step+1)+' of '+qs.length+'</div>';
+  h += '<div class="qtext">'+q.q+'</div>';
+  if(q.help) h += '<div class="qhelp">'+q.help+'</div>';
+
+  if(q.opts){
+    h += '<div class="opts">';
+    for(var i=0;i<q.opts.length;i++){
+      var o=q.opts[i], sel = (A[q.k]===o[0]) ? ' sel' : '';
+      h += '<button class="opt'+sel+'" onclick="pick(\''+q.k+'\',\''+o[0]+'\','+step+')">'+
+           '<b>'+o[1]+'</b>'+(o[2]?'<span>'+o[2]+'</span>':'')+'</button>';
+    }
+    h += '</div>';
+    h += '<div class="nav">'+backBtn(step)+'</div>';
+  } else {
+    var v = A[q.k] ? String(A[q.k]).replace(/"/g,'&quot;') : '';
+    if(q.input==='textarea')
+      h += '<textarea id="fld" placeholder="'+(q.ph||'')+'">'+v+'</textarea>';
+    else
+      h += '<input type="'+q.input+'" id="fld" placeholder="'+(q.ph||'')+'" value="'+v+'">';
+    h += '<div class="nav"><button class="btn" onclick="saveField(\''+q.k+'\','+step+')">Continue</button>'+backBtn(step)+'</div>';
+    if(q.input!=='date') h += '<p class="small" style="margin-top:10px">Optional. Leave it blank if you cannot find it.</p>';
+  }
+  h += '</section>';
+  host.innerHTML = h;
+  show('s-q');
+  var f = document.getElementById('fld'); if(f) f.focus();
+}
+
+function backBtn(step){
+  return step>0 ? '<button class="btn ghost" onclick="go('+(step-1)+')">Back</button>'
+                : '<button class="btn ghost" onclick="show(\'s-intro\');STEP=-1;renderProg()">Back</button>';
+}
+
+function pick(k,v,step){ A[k]=v; go(step+1); }
+function saveField(k,step){
+  var f=document.getElementById('fld');
+  A[k] = f ? f.value.trim() : '';
+  go(step+1);
+}
+
+function renderOut(){
+  var d = computeDeadline(), reg = regulator(), arg = ARG[A.reason]||ARG.other, up = upsell();
+  var h = '';
+
+  /* deadline */
+  h += '<div class="card deadline">';
+  if(d){
+    var warn = d.left <= 30 ? ' warn' : '';
+    if(d.left >= 0){
+      h += '<div class="days'+warn+'">'+d.left+'</div><div class="small" style="margin-bottom:12px">days left, if the standard window applies</div>';
+      h += '<div class="dl">Aim to have it delivered by '+d.dueStr+'</div>';
+      h += '<p class="small">Better still, work to <b>'+new Date(d.due.getTime()-14*86400000).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})+'</b>. Records and signatures take longer than anyone expects, and 14 days of slack turns a missed deadline into an inconvenience.</p>';
+    } else {
+      h += '<div class="days warn">Past</div><div class="small" style="margin-bottom:12px">the standard window appears to have closed</div>';
+      h += '<p class="small">That is not always the end. Plans can accept late appeals for good cause, and some routes have separate clocks. Check your letter and call the number on it before assuming it is over.</p>';
+    }
+  } else {
+    h += '<div class="dl">No date entered</div><p class="small">Go back and add the date printed on your notice and this becomes a real date.</p>';
+  }
+  h += '<p class="small" style="margin-top:14px"><b>Your letter is the authority.</b> '+d0(d)+'</p>';
+  h += '</div>';
+
+  /* triage */
+  h += '<div class="card"><h2>What you are dealing with</h2><dl>';
+  h += '<div class="kv"><dt>The reason given</dt><dd><b>'+arg.name+'</b><br><span class="small">'+arg.means+'</span></dd></div>';
+  h += '<div class="kv"><dt>The strongest move</dt><dd>'+arg.move+'</dd></div>';
+  h += '<div class="kv"><dt>Who actually regulates this plan</dt><dd><b>'+reg.who+'</b><br><span class="small">'+reg.body+'</span></dd></div>';
+  h += '</dl>';
+  if(reg.warn) h += '<div class="note" style="border-color:var(--red);margin-bottom:0"><b>Worth knowing.</b> '+reg.warn+'</div>';
+  h += '</div>';
+
+  /* HR email if plan type unknown */
+  if(A.source==='work' && A.funding==='unknown'){
+    h += '<div class="card"><h2>Send this to HR today</h2>'+
+         '<p class="small">Two sentences. It decides who can help you if the insurer says no again, and HR fields this routinely.</p>'+
+         '<div class="letter" id="hrmail">Hi, quick benefits question. Is our health plan self-funded or fully-insured? And could you send me a copy of the Summary Plan Description?</div>'+
+         '<div class="nav"><button class="btn" onclick="copyEl(\'hrmail\')">Copy this</button></div></div>';
+  }
+
+  /* letter */
+  h += '<div class="card"><h2>Your draft appeal letter</h2>'+
+       '<p class="small">Everything <span class="fill">[in brackets]</span> is for you to fill in. We deliberately never asked for your name, member ID or claim number, so they are not here.</p>'+
+       '<div class="letter" id="ltr">'+esc(buildLetter())+'</div>'+
+       '<div class="nav"><button class="btn" onclick="copyEl(\'ltr\')">Copy letter</button>'+
+       '<button class="btn ghost" onclick="dl()">Download as .txt</button></div></div>';
+
+  /* checklist */
+  var cl = checklist();
+  h += '<div class="card"><h2>What to attach</h2><ol class="check">';
+  for(var i=0;i<cl.length;i++) h += '<li>'+cl[i]+'</li>';
+  h += '</ol></div>';
+
+  /* proof of receipt */
+  h += '<div class="card"><h2>How to send it</h2>'+
+       '<p>The clock usually runs from the date they <i>received</i> it, not the date you sent it. If that date is ever disputed, the only thing that settles it is your proof.</p>'+
+       '<ol class="check">'+
+       '<li>Send it certified mail with return receipt, so you get a signed card with a date.</li>'+
+       '<li>If there is a portal, upload it there too and screenshot the confirmation before closing it.</li>'+
+       '<li>Write down the reference number the moment it appears.</li>'+
+       '<li>Keep one complete copy of exactly what you sent, attachments included, in order.</li>'+
+       '</ol></div>';
+
+  /* upsell */
+  h += '<div class="upsell"><h2>What the free version cannot do</h2>';
+  for(var j=0;j<up.bits.length;j++) h += '<p style="color:#EDE9DF">'+up.bits[j]+'</p>';
+  h += '<p class="small" style="margin-top:16px">The Full Playbook picks up exactly here:</p><ul>';
+  h += '<li>The detailed letter that answers the insurer’s own criteria point by point, citing their policy by number</li>';
+  h += '<li>Unlimited revisions, including rewriting after a second denial</li>';
+  h += '<li>The records request, the HR email, and the provider letter of support, as templates</li>';
+  h += '<li>External review, for when the internal appeal is upheld</li>';
+  h += '<li>Ask the Guide, for the questions this page could not anticipate</li>';
+  h += '</ul>';
+  h += '<a class="cta" href="https://whop.com/checkout/plan_ieTSn7ujDSZt3">Get The Full Playbook, $149</a>';
+  h += '<p class="small" style="margin-top:12px">30-day money-back guarantee. <a href="/guarantee.html" style="color:#D9C89A">How it works</a></p>';
+  h += '</div>';
+
+  /* optional email capture, AFTER the value */
+  h += '<div class="card" style="margin-top:18px"><h2>Want this emailed to you?</h2>'+
+       '<p class="small">Optional. We will send the guide to reading a denial letter, and a few short follow-ups about the appeal process. Nothing you typed above is included or stored.</p>'+
+       '<form id="ef" onsubmit="return sendEmail(event)"><div class="row">'+
+       '<input type="email" id="em" placeholder="you@example.com" required style="flex:1;min-width:220px">'+
+       '<button class="btn amber" type="submit">Send it</button></div></form>'+
+       '<p class="small" id="emsg" style="margin-top:10px"></p></div>';
+
+  document.getElementById('s-out').innerHTML = h;
+  show('s-out');
+  if(typeof gtag==='function') gtag('event','appeal_kit_completed',{denial_reason:A.reason||'unknown',plan_source:A.source||'unknown'});
+}
+
+function d0(d){ return d && d.rule ? d.rule.note : 'Confirm every date against the notice you received.'; }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+  .replace(/\[([^\]]+)\]/g,'<span class="fill">[$1]</span>'); }
+
+function copyEl(id){
+  var t = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(toast, function(){
+    var r=document.createRange(); r.selectNode(document.getElementById(id));
+    window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+    try{document.execCommand('copy');toast()}catch(e){}
+    window.getSelection().removeAllRanges();
+  });
+}
+function dl(){
+  var b = new Blob([document.getElementById('ltr').innerText],{type:'text/plain'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download='appeal-letter-draft.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+function toast(){
+  var t=document.getElementById('toast'); t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},1600);
+}
+
+/* Kit form 9711205, the same list the free guide feeds. Only the email is sent. */
+function sendEmail(e){
+  e.preventDefault();
+  var em = document.getElementById('em').value.trim();
+  var msg = document.getElementById('emsg');
+  if(!em) return false;
+  msg.textContent = 'Sending...';
+  fetch('https://app.kit.com/forms/9711205/subscriptions',{
+    method:'POST', headers:{'Accept':'application/json'},
+    body:new URLSearchParams({email_address:em})
+  }).then(function(r){
+    if(!r.ok) throw new Error();
+    msg.innerHTML = 'Done. Check your inbox in the next minute. Not there? Look in junk or spam.';
+    document.getElementById('ef').style.display='none';
+    if(typeof gtag==='function'){
+      gtag('event','conversion',{'send_to':'AW-18278890681/P9K_CO2b9tUcELn5hoxE','value':1.0,'currency':'USD'});
+      gtag('event','guide_signup',{form_position:'appeal_kit'});
+    }
+    if(typeof fbq==='function') fbq('track','Lead');
+  }).catch(function(){
+    msg.textContent = 'Something went wrong. Try again in a moment.';
+  });
+  return false;
+}
+
+renderProg();
+</script>
+</body>
+</html>
