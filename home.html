@@ -112,7 +112,15 @@
     color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
   nav a { font-size: 15px; color: var(--muted); text-decoration: none; margin-left: 24px; }
   nav a:hover { color: var(--ink); }
-  @media (max-width: 560px) { nav a { margin-left: 16px; font-size: 14px; } }
+  /* On a phone the brand wraps to two lines and the nav crowds it, so stack them.
+     white-space:nowrap on the brand is the bit that actually stops the wrap. */
+  @media (max-width: 560px) {
+    header { padding: 18px 0 14px; }
+    header .wrap { flex-direction: column; align-items: flex-start; gap: 7px; }
+    .brand { white-space: nowrap; }
+    nav { margin-left: -2px; }
+    nav a { margin: 0 18px 0 0; font-size: 14.5px; }
+  }
 
   /* ---------- the margin rail ----------
      Two columns: a narrow marginalia gutter and the text measure.
