@@ -191,7 +191,7 @@
   </div>
 
   <div class="note">
-    <b>We never ask you to upload your denial letter.</b> You read it, you answer questions about it. Nothing you type here is sent to us or stored anywhere. It stays in your browser, and closing this tab erases it.
+    <b>We never ask you to upload your denial letter.</b> You read it, you answer questions about it. Everything you tell us about the claim stays in your browser and is never sent to us. At the end we ask for your first name and email, so we can put your name on the letter and send you a copy. That is the only thing that ever leaves this page.
   </div>
 
   <div class="nav">
@@ -405,8 +405,8 @@ function buildLetter(){
   L.push('');
   L.push('Sincerely,');
   L.push('');
-  L.push('[YOUR NAME]');
-  L.push('[PHONE]  [EMAIL]');
+  L.push(A.name ? A.name : '[YOUR NAME]');
+  L.push('[PHONE]  ' + (A.email ? A.email : '[EMAIL]'));
   return L.join('\n');
 }
 
@@ -447,7 +447,8 @@ function activeQs(){ return Q.filter(function(q){ return !q.onlyIf || q.onlyIf()
 
 function renderProg(){
   var qs = activeQs(), p = document.getElementById('prog'), h='';
-  for(var i=0;i<qs.length;i++){
+  var total = qs.length + 1;   /* +1 for the name and email step */
+  for(var i=0;i<total;i++){
     var cls = STEP>i ? 'done' : (STEP===i ? 'on' : '');
     h += '<i class="'+cls+'"></i>';
   }
@@ -464,7 +465,7 @@ function show(id){
 
 function go(step){
   var qs = activeQs();
-  if(step >= qs.length){ renderOut(); STEP = qs.length; renderProg(); return; }
+  if(step >= qs.length){ renderGate(); return; }
   STEP = step; renderProg();
   var q = qs[step];
   var host = document.getElementById('qhost');
@@ -509,6 +510,67 @@ function saveField(k,step){
   go(step+1);
 }
 
+/* ---- name and email, asked after the questions and before the results.
+   Deliberately not at the door: cold traffic bounces before it has seen
+   anything, and by this point they have answered ten questions and are one
+   click from their own deadline. The name is not a tax, it goes on the
+   letter. ---- */
+function renderGate(){
+  var qs = activeQs();
+  STEP = qs.length; renderProg();
+  var h = '<section class="screen live" id="s-q">';
+  h += '<div class="qnum">Last step</div>';
+  h += '<div class="qtext">Who is this letter from?</div>';
+  h += '<div class="qhelp">Your first name is printed on the appeal letter itself. Your email gets you a copy, so closing this tab does not lose it.</div>';
+  h += '<div class="opts">';
+  h += '<input type="text" id="gname" placeholder="First name" autocomplete="given-name">';
+  h += '<input type="email" id="gmail" placeholder="you@example.com" autocomplete="email">';
+  h += '</div>';
+  h += '<p class="small" id="gerr" style="color:var(--red);min-height:21px;margin:8px 0 0"></p>';
+  h += '<div class="nav"><button class="btn" id="gbtn" onclick="submitGate()">Show my results</button>'+
+       '<button class="btn ghost" onclick="go('+(qs.length-1)+')">Back</button></div>';
+  h += '<p class="small" style="margin-top:16px">Nothing you told us about the claim goes with this. Not the reason, not the dates, not what your doctor said. Your name and email, and that is all. <a href="/privacy.html">What we do and do not collect</a></p>';
+  h += '</section>';
+  document.getElementById('qhost').innerHTML = h;
+  show('s-q');
+  var f=document.getElementById('gname'); if(f) f.focus();
+}
+
+function submitGate(){
+  var n = document.getElementById('gname').value.trim();
+  var em = document.getElementById('gmail').value.trim();
+  var err = document.getElementById('gerr');
+  if(!n){ err.textContent = 'Please add your first name, it goes on the letter.'; return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err.textContent = 'That email does not look right. Check it and try again.'; return; }
+  err.textContent = '';
+  A.name = n; A.email = em;
+
+  var btn = document.getElementById('gbtn');
+  btn.disabled = true; btn.textContent = 'Building your kit...';
+
+  /* Kit receives the name and the email. Nothing else, ever.
+     If Kit is slow or down we show the results anyway. Nobody gets held
+     behind a third party outage on a page about their own deadline. */
+  var done = false;
+  function proceed(){
+    if(done) return; done = true;
+    renderOut(); STEP = activeQs().length + 1; renderProg();
+  }
+  setTimeout(proceed, 2500);
+  fetch('https://app.kit.com/forms/9711205/subscriptions',{
+    method:'POST', headers:{'Accept':'application/json'},
+    body:new URLSearchParams({email_address:em, first_name:n})
+  }).then(function(r){
+    if(r && r.ok){
+      if(typeof gtag==='function'){
+        gtag('event','conversion',{'send_to':'AW-18278890681/P9K_CO2b9tUcELn5hoxE','value':1.0,'currency':'USD'});
+        gtag('event','guide_signup',{form_position:'appeal_kit_gate'});
+      }
+      if(typeof fbq==='function') fbq('track','Lead');
+    }
+  }).catch(function(){}).then(proceed);
+}
+
 function renderOut(){
   var d = computeDeadline(), reg = regulator(), arg = ARG[A.reason]||ARG.other, up = upsell();
   var h = '';
@@ -550,7 +612,7 @@ function renderOut(){
 
   /* letter */
   h += '<div class="card"><h2>Your draft appeal letter</h2>'+
-       '<p class="small">Everything <span class="fill">[in brackets]</span> is for you to fill in. We deliberately never asked for your name, member ID or claim number, so they are not here.</p>'+
+       '<p class="small">Your name is already on it. Everything still <span class="fill">[in brackets]</span> is for you to fill in. We never asked for your member ID, policy number or claim number, so those are not here and you will need to copy them off your letter.</p>'+
        '<div class="letter" id="ltr">'+esc(buildLetter())+'</div>'+
        '<div class="nav"><button class="btn" onclick="copyEl(\'ltr\')">Copy letter</button>'+
        '<button class="btn ghost" onclick="dl()">Download as .txt</button></div></div>';
@@ -585,14 +647,6 @@ function renderOut(){
   h += '<p class="small" style="margin-top:12px">14-day money-back guarantee. <a href="/guarantee.html" style="color:#D9C89A">How it works</a></p>';
   h += '</div>';
 
-  /* optional email capture, AFTER the value */
-  h += '<div class="card" style="margin-top:18px"><h2>Want this emailed to you?</h2>'+
-       '<p class="small">Optional. We will send the guide to reading a denial letter, and a few short follow-ups about the appeal process. Nothing you typed above is included or stored.</p>'+
-       '<form id="ef" onsubmit="return sendEmail(event)"><div class="row">'+
-       '<input type="email" id="em" placeholder="you@example.com" required style="flex:1;min-width:220px">'+
-       '<button class="btn amber" type="submit">Send it</button></div></form>'+
-       '<p class="small" id="emsg" style="margin-top:10px"></p></div>';
-
   document.getElementById('s-out').innerHTML = h;
   show('s-out');
   if(typeof gtag==='function') gtag('event','appeal_kit_completed',{denial_reason:A.reason||'unknown',plan_source:A.source||'unknown'});
@@ -620,31 +674,6 @@ function dl(){
 function toast(){
   var t=document.getElementById('toast'); t.classList.add('show');
   setTimeout(function(){t.classList.remove('show')},1600);
-}
-
-/* Kit form 9711205, the same list the free guide feeds. Only the email is sent. */
-function sendEmail(e){
-  e.preventDefault();
-  var em = document.getElementById('em').value.trim();
-  var msg = document.getElementById('emsg');
-  if(!em) return false;
-  msg.textContent = 'Sending...';
-  fetch('https://app.kit.com/forms/9711205/subscriptions',{
-    method:'POST', headers:{'Accept':'application/json'},
-    body:new URLSearchParams({email_address:em})
-  }).then(function(r){
-    if(!r.ok) throw new Error();
-    msg.innerHTML = 'Done. Check your inbox in the next minute. Not there? Look in junk or spam.';
-    document.getElementById('ef').style.display='none';
-    if(typeof gtag==='function'){
-      gtag('event','conversion',{'send_to':'AW-18278890681/P9K_CO2b9tUcELn5hoxE','value':1.0,'currency':'USD'});
-      gtag('event','guide_signup',{form_position:'appeal_kit'});
-    }
-    if(typeof fbq==='function') fbq('track','Lead');
-  }).catch(function(){
-    msg.textContent = 'Something went wrong. Try again in a moment.';
-  });
-  return false;
 }
 
 renderProg();
