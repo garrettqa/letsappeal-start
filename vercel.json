@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "letsappeal.com" }],
+      "destination": "/home.html"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "www.letsappeal.com" }],
+      "destination": "/home.html"
+    }
+  ]
+}

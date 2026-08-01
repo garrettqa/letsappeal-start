@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Let's Appeal, Fight a Health Insurance Denial</title>
+<meta name="description" content="Denied by your health insurer? Answer ten questions and Your First Letter gives you your appeal deadline as a real date, which rules govern your plan, and a draft appeal letter. Free, with nothing to upload.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://letsappeal.com/">
+<meta property="og:title" content="Let's Appeal, Fight a Health Insurance Denial">
+<meta property="og:description" content="Your appeal deadline as an actual date, which rulebook governs your plan, and a draft letter built around the reason they gave. Free, in about three minutes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://letsappeal.com/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google tag. Same Measurement ID across every subdomain, so GA4 already treats
+     letsappeal.com, start.letsappeal.com and decoder.letsappeal.com as one user and
+     one session. No cross-domain linker needed, and adding one would only litter the
+     URLs with _gl= parameters. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18278890681"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18278890681');
+  gtag('config', 'G-TBFMF11ME4');
+</script>
+
+<!-- Meta Pixel. Same hard rule as every other page: PageView only here, and nothing
+     about anyone's health, plan or claim is ever sent. Advanced Matching stays off. -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1031029212882366');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1031029212882366&ev=PageView&noscript=1"/></noscript>
+
+<style>
+  :root {
+    --ink: #1B2A4A; --paper: #FAFAF7; --page: #F3F2ED; --marker: #FFE566;
+    --body: #3D4657; --muted: #6B7487; --tint: #E9EEF6; --line: #D9D6CC;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--page); color: var(--body); line-height: 1.6; font-size: 17px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  h1 { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(32px, 4.5vw, 46px);
+    line-height: 1.15; color: var(--ink); font-weight: 700; margin-bottom: 20px; }
+  h2 { font-family: 'Source Serif 4', Georgia, serif; font-size: clamp(26px, 3.2vw, 34px);
+    color: var(--ink); font-weight: 700; margin-bottom: 14px; line-height: 1.2; }
+  h3 { font-size: 18px; color: var(--ink); font-weight: 700; margin-bottom: 8px; }
+  p { margin-bottom: 14px; }
+  a { color: var(--ink); }
+  .hl { background: linear-gradient(transparent 62%, var(--marker) 62%); }
+  .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .lede { font-size: 19px; line-height: 1.55; margin-bottom: 26px; max-width: 56ch; }
+  .sec-lede { font-size: 18px; color: var(--muted); margin-bottom: 32px; max-width: 62ch; }
+  .small { font-size: 14.5px; color: var(--muted); }
+
+  header { padding: 18px 0; border-bottom: 1px solid var(--line); background: var(--page);
+    position: sticky; top: 0; z-index: 20; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 19px;
+    color: var(--ink); text-decoration: none; }
+  .brand span { background: linear-gradient(transparent 60%, var(--marker) 60%); }
+  nav a { font-size: 15px; font-weight: 600; color: var(--body); text-decoration: none; margin-left: 22px; }
+  nav a:hover { color: var(--ink); }
+  @media (max-width: 560px) { nav a { margin-left: 14px; font-size: 14px; } }
+
+  section { padding: 66px 0; }
+  section.alt { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  /* hero */
+  .hero { padding: 62px 0 70px; }
+  .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 54px; align-items: center; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .btn { display: inline-block; padding: 15px 26px; font-size: 16.5px; font-weight: 700;
+    border-radius: 6px; text-decoration: none; border: 2px solid var(--ink); transition: background .15s ease; }
+  .btn-primary { background: var(--ink); color: var(--paper); }
+  .btn-primary:hover { background: #2A3D66; }
+  .btn-ghost { background: transparent; color: var(--ink); }
+  .btn-ghost:hover { background: var(--tint); }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 480px) { .btn { display: block; width: 100%; text-align: center; } }
+
+  /* the letter mock, rendered rather than photographed so it stays sharp and
+     nothing has to be hotlinked from anywhere */
+  .stage { position: relative; }
+  .letter { background: #fff; border: 1px solid var(--line); border-radius: 8px;
+    padding: 26px 26px 30px; box-shadow: 0 1px 2px rgba(27,42,74,.05), 0 16px 40px rgba(27,42,74,.09);
+    font-family: 'Courier Prime', ui-monospace, monospace; font-size: 12.5px; line-height: 1.75; color: #2A2E38; }
+  .letter .lh { font-weight: 700; font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 12px; }
+  .letter p { margin-bottom: 10px; }
+  .letter .dim { color: #8A8F9C; }
+  .mark { background: var(--marker); padding: 0 3px; border-radius: 2px; }
+  .caption { margin-top: 16px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+
+  /* cards */
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 26px; }
+  section.alt .card { background: #fff; }
+  .tag { display: inline-block; font-size: 11.5px; font-weight: 700; letter-spacing: .1em;
+    background: var(--tint); color: var(--ink); padding: 4px 9px; border-radius: 4px; margin-bottom: 12px; }
+  .card p { margin-bottom: 0; font-size: 15.5px; }
+
+  /* module list */
+  .mods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin: 22px 0 28px; padding: 0; list-style: none; }
+  @media (max-width: 700px) { .mods { grid-template-columns: 1fr; } }
+  .mods li { position: relative; padding-left: 26px; font-size: 16px; }
+  .mods li:before { content: ""; position: absolute; left: 0; top: 9px; width: 10px; height: 10px;
+    background: var(--marker); border-radius: 2px; }
+
+  /* pricing */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  @media (max-width: 860px) { .plans { grid-template-columns: 1fr; } }
+  .plan { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 30px; }
+  .plan.paid { border: 2px solid var(--ink); }
+  .plan .price { font-family: 'Source Serif 4', Georgia, serif; font-size: 34px; font-weight: 700;
+    color: var(--ink); margin-bottom: 4px; }
+  .plan ul { list-style: none; margin: 18px 0 24px; }
+  .plan li { position: relative; padding-left: 24px; margin-bottom: 10px; font-size: 15.5px; }
+  .plan li:before { content: "✓"; position: absolute; left: 0; color: var(--ink); font-weight: 700; }
+
+  /* faq */
+  details { border-bottom: 1px solid var(--line); padding: 18px 0; }
+  details summary { font-weight: 700; color: var(--ink); cursor: pointer; font-size: 17px; list-style: none; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary:before { content: "+"; margin-right: 12px; color: var(--muted); font-weight: 700; }
+  details[open] summary:before { content: "–"; }
+  details p { margin: 12px 0 0 24px; font-size: 16px; }
+
+  .sources { text-align: center; }
+  .sources .eyebrow { margin-bottom: 10px; }
+
+  footer { background: var(--ink); color: #B9C2D4; padding: 44px 0; font-size: 14px; line-height: 1.7; }
+  footer a { color: #DCE3F0; }
+  footer .fbrand { font-family: 'Source Serif 4', Georgia, serif; font-weight: 700;
+    font-size: 18px; color: var(--paper); margin-bottom: 12px; }
+  footer p { margin-bottom: 10px; max-width: 78ch; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">Let's <span>Appeal</span></a>
+    <nav>
+      <a href="https://start.letsappeal.com/appeal.html">Your First Letter</a>
+      <a href="#pricing">The Playbook</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Free &middot; no upload &middot; about three minutes</div>
+      <h1>Fewer than 1% of denied health insurance claims are <span class="hl">ever appealed.</span></h1>
+      <p class="lede">When people do push back, a real share succeed. Answer ten questions about the letter they sent you and Your First Letter gives you your appeal deadline as a real date, which rules govern your plan, and a draft letter you can send.</p>
+      <div class="btnrow">
+        <a class="btn btn-primary" href="https://start.letsappeal.com/appeal.html">Start Your First Letter</a>
+        <a class="btn btn-ghost" href="https://start.letsappeal.com/">Get the free guide</a>
+      </div>
+      <p class="small" style="margin-top:18px;max-width:52ch">We never ask you to upload or paste your denial letter. You read it, you answer questions about it, and everything you type stays in your browser.</p>
+    </div>
+
+    <div class="stage">
+      <div class="letter" aria-hidden="true">
+        <div class="lh">Notice of Adverse Benefit Determination</div>
+        <p class="dim">RE: Claim decision for services on file</p>
+        <p>Claim Number: <span class="mark">CLM-2026-084512</span></p>
+        <p>After review, this claim has been denied. Reason code 197: service determined not medically necessary under your plan.</p>
+        <p><span class="mark">You have the right to appeal this decision.</span></p>
+        <p>Appeals must be filed within <span class="mark">the period stated in this notice</span> of the date you received this letter.</p>
+        <p class="dim">For questions, contact Member Services at the number on your ID card.</p>
+      </div>
+      <p class="caption">This is the letter you already have. Ten questions about what it says, and you get the deadline, the rules, and a draft reply.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= WHAT YOU GET FREE ================= -->
+<section class="alt">
+  <div class="wrap">
+    <h2>What Your First Letter gives you, free</h2>
+    <p class="sec-lede">Not a summary of your letter. The three things that decide whether an appeal even gets read, worked out from your own answers.</p>
+    <div class="cols">
+      <div class="card">
+        <span class="tag">DEADLINE</span>
+        <h3>Your deadline as a date</h3>
+        <p>Most appeals are lost on the calendar, not on the merits. Give us the date printed on your notice and you get the day yours is due, plus a working target two weeks earlier, because records and signatures always take longer than people expect.</p>
+      </div>
+      <div class="card">
+        <span class="tag">RULES</span>
+        <h3>Which rulebook governs you</h3>
+        <p>Medicare, Medicaid, a marketplace plan and a self-funded employer plan all follow different rules and answer to different regulators. Getting this wrong sends people to an agency that has no power to help them, and it is the single most common mistake.</p>
+      </div>
+      <div class="card">
+        <span class="tag">LETTER</span>
+        <h3>A letter you can send</h3>
+        <p>Built around the specific reason printed on your notice, in your own words, demanding the documents that reason entitles you to. Plus what to attach, in what order, and how to send it so the date is provable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE PLAYBOOK ================= -->
+<section>
+  <div class="wrap">
+    <h2>Ready to actually file the appeal?</h2>
+    <p class="sec-lede">The Full Playbook is the step-by-step system for fighting your health insurance denial. Eight modules, every template and script, and an AI guide that reads your letter with you.</p>
+    <ul class="mods">
+      <li>Read your denial letter like a map</li>
+      <li>Know your deadline</li>
+      <li>Identify your denial type</li>
+      <li>Build your evidence file</li>
+      <li>Write a targeted appeal letter</li>
+      <li>Submit, confirm, and track</li>
+      <li>Escalate to external review</li>
+      <li>Ask the Guide, your AI tutor</li>
+    </ul>
+    <a class="btn btn-primary" href="https://whop.com/checkout/plan_ieTSn7ujDSZt3">Get the Full Playbook, $149</a>
+    <p class="small" style="margin-top:14px">One payment, no subscription. 14-day money-back guarantee, <a href="https://start.letsappeal.com/guarantee.html">how it works</a>.</p>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="alt" id="pricing">
+  <div class="wrap">
+    <h2>Two ways to start</h2>
+    <p class="sec-lede">The free tool is genuinely useful on its own. The course is for when the first letter is not enough.</p>
+    <div class="plans">
+      <div class="plan">
+        <div class="eyebrow" style="margin-bottom:8px">Free</div>
+        <div class="price">Your First Letter</div>
+        <p class="small">Ten questions, no account, nothing to upload.</p>
+        <ul>
+          <li>Your appeal deadline as a real date</li>
+          <li>Which rulebook and regulator govern your plan</li>
+          <li>A draft appeal letter you can send</li>
+          <li>The evidence checklist, in order</li>
+          <li>How to send it so the date is provable</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://start.letsappeal.com/appeal.html">Start Your First Letter</a>
+      </div>
+      <div class="plan paid">
+        <div class="eyebrow" style="margin-bottom:8px">The Full Playbook</div>
+        <div class="price">$149</div>
+        <p class="small">One time. 14-day money-back guarantee.</p>
+        <ul>
+          <li>Everything in Your First Letter, plus:</li>
+          <li>The 8-module course</li>
+          <li>All templates and letters</li>
+          <li>Criteria crosswalk</li>
+          <li>Letter of medical necessity template</li>
+          <li>The Ask the Guide AI tutor</li>
+        </ul>
+        <a class="btn btn-primary" href="https://whop.com/checkout/plan_ieTSn7ujDSZt3">Get the Full Playbook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section>
+  <div class="wrap">
+    <h2>Questions?</h2>
+    <div style="max-width:78ch">
+      <details>
+        <summary>Do I need a lawyer to appeal?</summary>
+        <p>Most internal appeals are written by the patient or their doctor's office rather than a lawyer. The Playbook is built for doing it yourself. It is educational material, not legal representation.</p>
+      </details>
+      <details>
+        <summary>Is this legal or medical advice?</summary>
+        <p>No. Let's Appeal is educational. We show you how the appeals process works and give you the templates and scripts. Every plan is different, and the deadline printed on your own denial letter is always the authority.</p>
+      </details>
+      <details>
+        <summary>Will this work for my type of plan?</summary>
+        <p>The Playbook covers Marketplace, Medicare, Medicaid and employer/ERISA plans separately, because the rules and the deadlines differ. Module 2 helps you work out which one you are on, and Your First Letter tells you for free in about three minutes.</p>
+      </details>
+      <details>
+        <summary>What if my deadline has already passed?</summary>
+        <p>Check your letter before you assume it has. Deadlines vary by plan type, and the date that matters is the one printed on your notice. Your First Letter takes that date and works out the day your appeal is actually due.</p>
+      </details>
+      <details>
+        <summary>Is Your First Letter really free?</summary>
+        <p>Yes. Ten questions, no account and no card, and nothing to upload. You get your deadline, which rules govern your plan, and a draft appeal letter. We ask for your first name and email at the end, the name because it is printed on the letter.</p>
+      </details>
+      <details>
+        <summary>Do I have to send you my denial letter?</summary>
+        <p>No, and we will not accept it. You read your own letter and answer questions about it. Nothing you type into the tool is transmitted to us or stored anywhere, and closing the tab erases it. That is written into our <a href="https://start.letsappeal.com/privacy.html">privacy policy</a>.</p>
+      </details>
+      <details>
+        <summary>What do I actually get for $149?</summary>
+        <p>Eight modules, every appeal letter template and phone script, a criteria crosswalk for matching your records to your insurer's own published policy, a letter of medical necessity template, and the "Ask the Guide" AI tutor. One payment, no subscription.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+<section class="alt">
+  <div class="wrap sources">
+    <div class="eyebrow">Sources cited in this course</div>
+    <p class="small">KFF &middot; HealthCare.gov &middot; U.S. Department of Labor &middot; Medicare.gov &middot; Medicaid.gov</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand">Let's Appeal</div>
+    <p>Educational information only. Not legal, medical, or insurance advice. Always confirm details against your own plan documents and denial letter. The denial letter and the plan documents are always the authority.</p>
+    <p>Let's Appeal is operated by Let's Appeal LLC. Questions: <a href="mailto:hello@letsappeal.com">hello@letsappeal.com</a></p>
+    <p>
+      <a href="https://start.letsappeal.com/privacy.html">Privacy Policy</a> &middot;
+      <a href="https://start.letsappeal.com/guarantee.html">14-Day Guarantee</a> &middot;
+      <a href="https://start.letsappeal.com/appeal.html">Your First Letter</a>
+    </p>
+    <p>&copy; 2026 Let's Appeal LLC. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   UTM pass-through.
+
+   Traffic arrives here with ?utm_source=google&utm_medium=cpc&utm_content=<ad group>,
+   but the outbound links are authored bare, so without this those UTMs die on this page.
+   This copies any incoming utm_* onto every onward hop: the Whop checkout, the free tool,
+   and the guide.
+
+   Revenue attribution never depended on this, the Whop webhook matches on hashed email,
+   so this is about referrer reporting rather than about tracking sales.
+
+   To cover another destination later, add its hostname to TARGETS. Nothing else changes.
+============================================================ */
+(function () {
+  var KEY = "la_utm";
+  var TARGETS = ["whop.com/checkout", "start.letsappeal.com"];
+
+  function collect() {
+    var found = [];
+    try {
+      new URLSearchParams(window.location.search).forEach(function (v, k) {
+        if (/^utm_/i.test(k) && v) found.push([k, v]);
+      });
+    } catch (e) { return []; }
+    return found;
+  }
+
+  /* Remember for the rest of the visit, so a jump to #pricing or a back/forward that
+     drops the query string does not silently lose attribution. */
+  function remember(pairs) {
+    try {
+      if (pairs.length) sessionStorage.setItem(KEY, JSON.stringify(pairs));
+      else {
+        var saved = sessionStorage.getItem(KEY);
+        if (saved) pairs = JSON.parse(saved);
+      }
+    } catch (e) { /* private mode: carry on with whatever we have */ }
+    return pairs;
+  }
+
+  var utms = remember(collect());
+  if (!utms.length) return;   /* no UTMs, leave every link exactly as authored */
+
+  function decorate() {
+    var sel = TARGETS.map(function (t) { return 'a[href*="' + t + '"]'; }).join(",");
+    var links = document.querySelectorAll(sel);
+    for (var i = 0; i < links.length; i++) {
+      var a = links[i], url;
+      try { url = new URL(a.href); } catch (e) { continue; }
+      var changed = false;
+      for (var j = 0; j < utms.length; j++) {
+        /* Do not clobber a UTM the link already carries on purpose. */
+        if (!url.searchParams.has(utms[j][0])) {
+          url.searchParams.set(utms[j][0], utms[j][1]);
+          changed = true;
+        }
+      }
+      if (changed) a.href = url.toString();
+    }
+  }
+
+  decorate();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", decorate);
+})();
+
+/* checkout_click. The step before the checkout is the one GA4 can still see, because
+   whop.com is a different domain we do not control. Whichever step loses people names
+   the problem. */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest ? e.target.closest('a[href*="whop.com/checkout"]') : null;
+  if (!a) return;
+  if (typeof gtag === 'function') gtag('event', 'checkout_click', { link_url: a.href });
+  if (typeof fbq === 'function') fbq('track', 'InitiateCheckout');
+});
+</script>
+</body>
+</html>
