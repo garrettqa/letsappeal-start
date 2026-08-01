@@ -29,6 +29,30 @@
   gtag('config', 'G-TBFMF11ME4');
 </script>
 
+<!-- Meta Pixel. Dataset "Let's Appeal Web" (1031029212882366), created 2026-07-31.
+     Added so the Meta campaign can eventually optimise for signups instead of landing page
+     views. Until enough Lead events have banked, the ad set deliberately stays on landing
+     page views - a brand new pixel cannot support conversion optimisation at $10/day.
+
+     HARD RULE: PageView and Lead only, with no parameters. Never pass the email, and never
+     pass anything about a visitor's health, plan, insurer or claim. Meta's terms prohibit
+     receiving health information and it would be wrong regardless. The Lead event says that
+     someone signed up. It says nothing about who they are or why. -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1031029212882366');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1031029212882366&ev=PageView&noscript=1"/></noscript>
+
 <style>
   :root {
     --ink: #1B2A4A;
@@ -548,6 +572,13 @@ function wireForm(formId) {
         gtag('event', 'guide_signup', {
           form_position: formId === 'signup-form-top' ? 'top' : 'bottom'
         });
+      }
+
+      /* Meta Pixel, same moment as the two Google events above. This is the event that will
+         eventually let the Meta campaign optimise for signups rather than landing page views.
+         Deliberately no parameters: nothing the visitor typed goes to Meta. */
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead');
       }
 
     } catch (err) {
