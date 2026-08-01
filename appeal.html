@@ -425,7 +425,7 @@ function checklist(){
   c.push('<b>Your medical records for the relevant dates.</b> Office notes, test results and imaging reports. Ask the records department in writing and name your HIPAA right of access.');
   c.push('<b>A letter of support from the treating provider.</b> Short, specific, and pointed at the insurer’s stated reason rather than at general need.');
   if(A.source==='work' && A.funding==='unknown')
-    c.push('<b>Confirmation of your plan type from HR.</b> Use the two-sentence email below. It decides who you can escalate to.');
+    c.push('<b>Confirmation of your plan type from HR.</b> Use the two-sentence email above. It decides who you can escalate to.');
   c.push('<b>Proof of what you sent and when.</b> Certified mail with return receipt, or a portal confirmation screenshot.');
   return c;
 }
@@ -543,7 +543,7 @@ function renderOut(){
   /* HR email if plan type unknown */
   if(A.source==='work' && A.funding==='unknown'){
     h += '<div class="card"><h2>Send this to HR today</h2>'+
-         '<p class="small">Two sentences. It decides who can help you if the insurer says no again, and HR fields this routinely.</p>'+
+         '<p class="small">Two sentences, and HR fields this kind of question routinely. It decides who can help you if the insurer says no again, so it is worth sending before you post the appeal.</p>'+
          '<div class="letter" id="hrmail">Hi, quick benefits question. Is our health plan self-funded or fully-insured? And could you send me a copy of the Summary Plan Description?</div>'+
          '<div class="nav"><button class="btn" onclick="copyEl(\'hrmail\')">Copy this</button></div></div>';
   }
