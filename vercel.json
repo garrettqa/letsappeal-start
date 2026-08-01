@@ -1,15 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
+
+  "//": "One project serves two sites. letsappeal.com gets home.html (marketing homepage), start.letsappeal.com gets index.html (the ad landing page). This MUST use legacy `routes` rather than `rewrites`: Vercel evaluates `rewrites` AFTER the filesystem, so `/` matches index.html and a rewrite never fires. `routes` are evaluated BEFORE the filesystem, with `{ handle: filesystem }` as the fallthrough. Do not 'modernise' this back to `rewrites` without testing both hostnames.",
+
+  "routes": [
     {
-      "source": "/",
+      "src": "/",
       "has": [{ "type": "host", "value": "letsappeal.com" }],
-      "destination": "/home.html"
+      "dest": "/home.html"
     },
     {
-      "source": "/",
+      "src": "/",
       "has": [{ "type": "host", "value": "www.letsappeal.com" }],
-      "destination": "/home.html"
-    }
+      "dest": "/home.html"
+    },
+    { "handle": "filesystem" }
   ]
 }
