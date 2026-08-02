@@ -432,24 +432,6 @@
   @media(max-width:600px){.kittitle{font-size:24px}.kitband{padding:40px 0}}
 
   /* ---------- Your First Letter, primary CTA ---------- */
-  /* hero ask, added 2026-08-02 */
-  .heroask { font-size: 16.5px; color: var(--body); margin-bottom: 14px; max-width: 44ch; }
-  .herocapture { margin-bottom: 14px; }
-  .herocapture label { font-size: 13px; }
-  .herosecondary { margin-bottom: 14px; }
-  a.startlink {
-    display: inline-block; font-size: 16px; font-weight: 600; color: var(--ink);
-    text-decoration: none; border-bottom: 2px solid var(--marker); padding-bottom: 2px;
-  }
-  a.startlink:hover { border-bottom-color: var(--ink); }
-  a.startlink:focus-visible { outline: 3px solid var(--marker); outline-offset: 3px; }
-  /* Stack the field and button on a phone. Side by side at 390px leaves the input
-     too narrow to read a typed address in, which is where this traffic actually is. */
-  @media (max-width: 560px) {
-    .herocapture .field-row { flex-direction: column; }
-    .herocapture .field-row button.cta { width: 100%; }
-  }
-
   a.startcta { display: inline-block; padding: 16px 28px; font-size: 17px; font-weight: 700;
     font-family: inherit; color: var(--paper); background: var(--ink); border: 2px solid var(--ink);
     border-radius: 6px; text-decoration: none; transition: background 0.15s ease; }
@@ -502,27 +484,12 @@
         <h1>Your first letter, <span class="hl">written today.</span></h1>
         <p class="lede">Ten questions about the notice they sent you. You get your appeal deadline as an actual date, which rules really govern your plan, and a draft letter built around the exact reason they gave.</p>
 
-        <!-- Hero ask, restructured 2026-08-02.
-             Clarity's first 23 sessions: 1.04 pages per session, 28% average scroll, 22 active
-             seconds, and zero rage or dead clicks. So people arrive, genuinely read a quarter of
-             the page, and leave. Not a broken page and not accidental taps: the ask was simply too
-             big for the attention on offer, and the guide form was sitting at roughly 70% down the
-             page where nobody at 28% scroll ever saw it.
-             The small ask now comes first. The tool is still one tap away and still the headline
-             promise, so the page still matches what the ad said. Revert is this block alone. -->
-        <p class="heroask">Not ready to answer ten questions? Start with the free written guide to reading a denial letter. We will email it to you now.</p>
-
-        <form class="capture herocapture" id="signup-form-hero" novalidate data-clarity-mask="true">
-          <label for="email-hero">Email address</label>
-          <div class="field-row">
-            <input type="email" id="email-hero" name="email" placeholder="you@example.com" required autocomplete="email">
-            <button type="submit" class="cta">Send me the free guide</button>
-          </div>
-          <div class="form-msg" role="status" aria-live="polite"></div>
-        </form>
-
-        <p class="herosecondary"><a class="startlink" href="/appeal.html">Or answer the ten questions now and get your draft letter &rarr;</a></p>
-        <p class="startnote">We never ask you to upload or paste your denial letter. You read it, you answer questions about it, and everything you type stays in your browser.</p>
+        <!-- Hero deliberately carries ONE ask: the tool, which is what the ads promise.
+             The free guide is offered by the popup at the bottom of this file instead.
+             A hero email form was tried on 2026-08-02 and reverted the same day: two asks
+             competing in the same space, and it stopped the page matching its own ad. -->
+        <a class="startcta" href="/appeal.html">Start Your First Letter</a>
+        <p class="startnote">We never ask you to upload or paste your denial letter. You read it, you answer questions about it, and everything you type stays in your browser. Already appealed once? It handles that too, and it changes what the letter argues.</p>
       </div>
 
       <div class="letter-stage" aria-hidden="true">
@@ -740,7 +707,6 @@ function wireForm(formId) {
   });
 }
 
-wireForm('signup-form-hero');
 wireForm('signup-form-bottom');
 </script>
 
@@ -999,15 +965,34 @@ document.addEventListener('click', function(e){
     track('guide_popup_shown');
   }
 
-  function close(){
+  // Send them back to the hero on the way out. Wherever the popup caught them, the top
+  // of the page is where the offer and the tool button are, so closing should land them
+  // looking at something rather than at whatever paragraph they happened to be beside.
+  // 'auto' not 'smooth': the page sets scroll-behavior smooth globally, and animating a
+  // long scroll after a modal closes reads as the page doing something odd.
+  function toTop(){
+    try { window.scrollTo({ top: 0, behavior: 'auto' }); }
+    catch (e) { window.scrollTo(0, 0); }
+  }
+
+  function close(opts){
     pop.hidden = true;
     document.body.style.overflow = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
-    track('guide_popup_dismissed');
+    if (!(opts && opts.silent)) track('guide_popup_dismissed');
+    toTop();
   }
 
   pop.addEventListener('click', function(e){
-    if (e.target.hasAttribute && e.target.hasAttribute('data-gp-close')) close();
+    if (!(e.target.hasAttribute && e.target.hasAttribute('data-gp-close'))) return;
+    // The skip link promises the ten questions, so it has to actually go there.
+    // Scrolling to the top instead would be a broken promise on a button they chose.
+    if (e.target.classList && e.target.classList.contains('gp-skip')) {
+      track('guide_popup_to_tool');
+      window.location.href = '/appeal.html';
+      return;
+    }
+    close();
   });
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && !pop.hidden) close();
@@ -1024,9 +1009,14 @@ document.addEventListener('click', function(e){
   if (form) {
     form.addEventListener('submit', function(){
       track('guide_popup_submitted');
+      // Let them read the confirmation, then close and put them back at the hero where
+      // the tool button is. Silent, because this is a completed signup rather than a
+      // dismissal and counting it as one would corrupt the dismiss rate.
       setTimeout(function(){
         var msg = form.querySelector('.form-msg');
-        if (msg && msg.className.indexOf('ok') !== -1) setTimeout(close, 2200);
+        if (msg && msg.className.indexOf('ok') !== -1) {
+          setTimeout(function(){ close({ silent: true }); }, 2200);
+        }
       }, 900);
     });
   }
