@@ -410,9 +410,16 @@
 </style>
 <!-- Microsoft Clarity. Session recordings and heatmaps, project xw6nkaahir.
      Installed 2026-08-02 to answer where on the page people stop, which no counter can.
-     Disclosed in privacy.html. Masking is enforced two ways: Strict mode is set in the
-     Clarity dashboard, and the sensitive regions of the tool carry data-clarity-mask so
-     they stay masked even if that dashboard setting is ever changed by mistake. -->
+     Disclosed in privacy.html. Masking is enforced two ways:
+       1. Account level: mode is BALANCED, which masks anything a visitor types plus all
+          images. Was briefly Strict on 2026-08-02, which also masked our own page copy and
+          made recordings unreadable for no privacy gain. Balanced still keeps every promise
+          privacy.html makes, because none of those promises cover our own marketing text.
+       2. Page level: data-clarity-mask on #qhost and #s-out in appeal.html. Every question,
+          the name and email gate, and the finished letter render inside those two, so they
+          stay masked regardless of the account setting. Element masking is independent of
+          the mode, so lowering the mode does not expose them.
+     Do not set the mode to Relaxed. That would mask nothing and break the policy. -->
 <script type="text/javascript">
 (function(c,l,a,r,i,t,y){
   c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
