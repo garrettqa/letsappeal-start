@@ -637,5 +637,104 @@ function wireForm(formId) {
 wireForm('signup-form-bottom');
 </script>
 
+<!-- Behaviour instrumentation, added 2026-08-02.
+     Answers the one question no ad metric can: where on the page do people stop.
+
+     GOOGLE ANALYTICS ONLY. Nothing here touches the Meta Pixel, on purpose. The
+     published privacy policy states that the Meta Pixel sends "exactly two signals:
+     that a page was opened, and that someone signed up for the guide. That is the
+     whole list." Adding events to that pixel would make the policy untrue, so it is
+     a decision for Garrett and a policy edit, not something to slip in here.
+
+     This fits what the policy already discloses under Google Analytics: "Standard
+     website analytics: pages viewed, approximate location derived from your IP
+     address, device and browser type, and how you arrived at the site."
+
+     Carries no personal data. Scroll position, elapsed seconds, and the text of
+     whatever was clicked. Nothing about anyone's health, plan or claim. -->
+<script>
+(function(){
+  var TAG = (document.body.getAttribute('data-page') || location.pathname || '/');
+  var t0 = Date.now(), maxPct = 0, ctaClicked = false, fired = {};
+
+  function send(name, params){
+    if (typeof gtag === 'function') gtag('event', name, params);
+  }
+  function once(key, name, params){
+    if (fired[key]) return;
+    fired[key] = 1;
+    send(name, params);
+  }
+
+  function pct(){
+    var h = document.documentElement;
+    var scrollable = (document.body.scrollHeight || h.scrollHeight) - window.innerHeight;
+    if (scrollable <= 0) return 100;               // page fits, treat as fully seen
+    var y = window.pageYOffset || h.scrollTop || 0;
+    return Math.max(0, Math.min(100, Math.round((y / scrollable) * 100)));
+  }
+
+  // Scroll depth. rAF-throttled so this cannot cost anything on a slow phone.
+  var ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){
+      ticking = false;
+      var p = pct();
+      if (p > maxPct) maxPct = p;
+      var marks = [25, 50, 75, 90];
+      for (var i = 0; i < marks.length; i++){
+        if (maxPct >= marks[i]) once('s' + marks[i], 'scroll_depth', { page: TAG, percent: marks[i] });
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Dwell time. Only counts if the tab is actually in front.
+  var secs = [15, 30, 60, 120];
+  for (var i = 0; i < secs.length; i++){
+    (function(s){
+      setTimeout(function(){
+        if (document.visibilityState === 'visible') once('t' + s, 'time_on_page', { page: TAG, seconds: s });
+      }, s * 1000);
+    })(secs[i]);
+  }
+
+  // Every link and button click, with the primary CTAs flagged.
+  document.addEventListener('click', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('a, button') : null;
+    if (!el) return;
+    var cls = (typeof el.className === 'string') ? el.className : '';
+    var primary = /startcta|btn-primary|kitcta/.test(cls);
+    if (primary) ctaClicked = true;
+    send('cta_click', {
+      page: TAG,
+      label: (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60),
+      href: el.getAttribute('href') || '',
+      primary: primary
+    });
+  }, true);
+
+  // One summary per visit. This is what makes a bounce measurable instead of invisible.
+  var summarised = false;
+  function summary(){
+    if (summarised) return;
+    summarised = true;
+    send('page_exit', {
+      page: TAG,
+      max_scroll: maxPct,
+      seconds: Math.round((Date.now() - t0) / 1000),
+      cta_clicked: ctaClicked
+    });
+  }
+  window.addEventListener('pagehide', summary);
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') summary();
+  });
+})();
+</script>
+
 </body>
 </html>
