@@ -34,10 +34,17 @@
      views. Until enough Lead events have banked, the ad set deliberately stays on landing
      page views - a brand new pixel cannot support conversion optimisation at $10/day.
 
-     HARD RULE: PageView and Lead only, with no parameters. Never pass the email, and never
-     pass anything about a visitor's health, plan, insurer or claim. Meta's terms prohibit
-     receiving health information and it would be wrong regardless. The Lead event says that
-     someone signed up. It says nothing about who they are or why. -->
+     HARD RULE, updated 2026-08-02. The pixel may send exactly these five events and no
+     others: PageView, ViewContent (opened the tool), Lead (signed up for the guide),
+     CompleteRegistration (finished a draft letter), InitiateCheckout (clicked through to
+     buy). Every one is a yes or no. NEVER pass the email, the name, a question answer, or
+     anything about a visitor's health, plan, insurer or claim. Meta's terms prohibit
+     receiving health information and it would be wrong regardless. Advanced Matching stays
+     OFF, deliberately. Scroll depth, dwell time and clicks go to Google Analytics only and
+     must never be added here.
+
+     This list is mirrored word for word in privacy.html under "Advertising and analytics,
+     specifically". If you change one, change the other in the same commit. -->
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -734,6 +741,17 @@ wireForm('signup-form-bottom');
     if (document.visibilityState === 'hidden') summary();
   });
 })();
+</script>
+
+<!-- Whop checkout intent. home.html already had this. index.html and appeal.html did not,
+     so anyone reaching the $149 offer from the tool was invisible to Meta. Yes/no only. -->
+<script>
+document.addEventListener('click', function(e){
+  var a = e.target && e.target.closest ? e.target.closest('a[href*="whop.com/checkout"]') : null;
+  if (!a) return;
+  if (typeof gtag === 'function') gtag('event','checkout_click',{ link_url: a.href });
+  if (typeof fbq  === 'function') fbq('track','InitiateCheckout');
+}, true);
 </script>
 
 </body>

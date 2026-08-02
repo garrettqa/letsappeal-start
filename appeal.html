@@ -24,8 +24,11 @@
   gtag('config', 'G-TBFMF11ME4');
 </script>
 
-<!-- Meta Pixel. Same hard rule as index.html: PageView and Lead only, no parameters.
-     Nothing the visitor answers in this tool is ever sent anywhere. -->
+<!-- Meta Pixel. Same hard rule as index.html, see the full list there. Nothing the
+     visitor answers in this tool is ever sent anywhere. The events on this page are
+     PageView, ViewContent on load, Lead at the gate, CompleteRegistration when a letter
+     is finished, and InitiateCheckout on the course link. All yes/no, no parameters
+     derived from anything the visitor typed. -->
 <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -37,6 +40,9 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '1031029212882366');
   fbq('track', 'PageView');
+  // Reached the tool. This is the step that was losing 657 of 658 paid visitors as of
+  // 2026-08-02, and PageView alone cannot tell it apart from a landing page hit.
+  fbq('track', 'ViewContent');
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
   src="https://www.facebook.com/tr?id=1031029212882366&ev=PageView&noscript=1"/></noscript>
@@ -661,6 +667,10 @@ function renderOut(){
   document.getElementById('s-out').innerHTML = h;
   show('s-out');
   if(typeof gtag==='function') gtag('event','appeal_kit_completed',{denial_reason:A.reason||'unknown',plan_source:A.source||'unknown'});
+  // A finished draft letter is the real conversion for this funnel. Until now it existed
+  // only in GA4, so the ad set could never see it or learn from it. No parameters: the
+  // denial_reason and plan_source above go to Google only and must never reach Meta.
+  if(typeof fbq==='function') fbq('track','CompleteRegistration');
 }
 
 function d0(d){ return d && d.rule ? d.rule.note : 'Confirm every date against the notice you received.'; }
@@ -786,6 +796,17 @@ renderProg();
     if (document.visibilityState === 'hidden') summary();
   });
 })();
+</script>
+
+<!-- Whop checkout intent. home.html already had this. index.html and appeal.html did not,
+     so anyone reaching the $149 offer from the tool was invisible to Meta. Yes/no only. -->
+<script>
+document.addEventListener('click', function(e){
+  var a = e.target && e.target.closest ? e.target.closest('a[href*="whop.com/checkout"]') : null;
+  if (!a) return;
+  if (typeof gtag === 'function') gtag('event','checkout_click',{ link_url: a.href });
+  if (typeof fbq  === 'function') fbq('track','InitiateCheckout');
+}, true);
 </script>
 
 </body>
