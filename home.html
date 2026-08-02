@@ -589,6 +589,26 @@ document.addEventListener('click', function (e) {
   if (!a) return;
   if (typeof gtag === 'function') gtag('event', 'checkout_click', { link_url: a.href });
   if (typeof fbq === 'function') laTrack('InitiateCheckout');
+
+  // Carry Meta's own _fbp / _fbc click cookies through to Whop as checkout metadata,
+  // so the webhook can attribute the sale back to an ad. Same rationale and the same
+  // wording as index.html and appeal.html: these are Meta's cookies handed back, not
+  // new personal data, and deliberately instead of sending the buyer's email.
+  try {
+    var m = {};
+    var ck = document.cookie.split(';');
+    for (var i = 0; i < ck.length; i++) {
+      var kv = ck[i].trim();
+      if (kv.indexOf('_fbp=') === 0) m.fbp = decodeURIComponent(kv.slice(5));
+      if (kv.indexOf('_fbc=') === 0) m.fbc = decodeURIComponent(kv.slice(5));
+    }
+    if (m.fbp || m.fbc) {
+      var u = new URL(a.href);
+      if (m.fbp) u.searchParams.set('metadata[fbp]', m.fbp);
+      if (m.fbc) u.searchParams.set('metadata[fbc]', m.fbc);
+      a.href = u.toString();
+    }
+  } catch (err) {}
 });
 </script>
 <!-- Behaviour instrumentation, added 2026-08-02.

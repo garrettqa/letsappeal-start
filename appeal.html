@@ -887,6 +887,30 @@ document.addEventListener('click', function(e){
   if (!a) return;
   if (typeof gtag === 'function') gtag('event','checkout_click',{ link_url: a.href });
   if (typeof fbq  === 'function') laTrack('InitiateCheckout');
+
+  // Carry the Meta click cookies through to Whop as checkout metadata. The purchase
+  // itself happens on Whop, so without this the sale comes back to us on a webhook
+  // with nothing Meta can match it to, and Meta never learns which ad produced a buyer.
+  //
+  // _fbp and _fbc are Meta's OWN cookies, set by their pixel on this page. Passing them
+  // is not new personal data: it is the same click identifier Meta already gave us,
+  // handed back. This is deliberately instead of sending the buyer's email, which the
+  // privacy policy rules out for Meta.
+  try {
+    var m = {};
+    var ck = document.cookie.split(';');
+    for (var i = 0; i < ck.length; i++) {
+      var kv = ck[i].trim();
+      if (kv.indexOf('_fbp=') === 0) m.fbp = decodeURIComponent(kv.slice(5));
+      if (kv.indexOf('_fbc=') === 0) m.fbc = decodeURIComponent(kv.slice(5));
+    }
+    if (m.fbp || m.fbc) {
+      var u = new URL(a.href);
+      if (m.fbp) u.searchParams.set('metadata[fbp]', m.fbp);
+      if (m.fbc) u.searchParams.set('metadata[fbc]', m.fbc);
+      a.href = u.toString();
+    }
+  } catch (err) {}
 }, true);
 </script>
 
