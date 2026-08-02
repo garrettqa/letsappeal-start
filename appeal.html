@@ -44,10 +44,38 @@
   s.parentNode.insertBefore(t,s)}(window,document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '1031029212882366');
-  fbq('track', 'PageView');
+  // laTrack: fires the pixel AND the server-side Conversions API with a shared
+  // event_id so Meta deduplicates the pair into one event. Added 2026-08-02, because
+  // the dataset had never received a server event and browser-only loses everything
+  // an ad blocker, Safari or iOS drops.
+  //
+  // If you ever add a pixel event, route it through laTrack, never fbq directly, or
+  // that event will be browser-only again. The five allowed names are enforced
+  // server side in api/capi.js and listed in privacy.html.
+  window.laTrack = function(name){
+    var id;
+    try {
+      id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+         : String(Date.now()) + '-' + Math.random().toString(16).slice(2);
+    } catch(e){ id = String(Date.now()) + '-' + Math.random().toString(16).slice(2); }
+
+    if (typeof fbq === 'function') fbq('track', name, {}, { eventID: id });
+
+    // keepalive so the request survives the page unloading on a CTA click.
+    try {
+      fetch('/api/capi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event_name: name, event_id: id, event_source_url: location.href }),
+        keepalive: true
+      }).catch(function(){});
+    } catch(e){}
+  };
+
+  laTrack('PageView');
   // Reached the tool. This is the step that was losing 657 of 658 paid visitors as of
   // 2026-08-02, and PageView alone cannot tell it apart from a landing page hit.
-  fbq('track', 'ViewContent');
+  laTrack('ViewContent');
 </script>
 <noscript><img height="1" width="1" style="display:none" alt=""
   src="https://www.facebook.com/tr?id=1031029212882366&ev=PageView&noscript=1"/></noscript>
@@ -617,7 +645,7 @@ function submitGate(){
         gtag('event','conversion',{'send_to':'AW-18278890681/P9K_CO2b9tUcELn5hoxE','value':1.0,'currency':'USD'});
         gtag('event','guide_signup',{form_position:'appeal_kit_gate'});
       }
-      if(typeof fbq==='function') fbq('track','Lead');
+      if(typeof fbq==='function') laTrack('Lead');
     }
   }).catch(function(){}).then(proceed);
 }
@@ -704,7 +732,7 @@ function renderOut(){
   // A finished draft letter is the real conversion for this funnel. Until now it existed
   // only in GA4, so the ad set could never see it or learn from it. No parameters: the
   // denial_reason and plan_source above go to Google only and must never reach Meta.
-  if(typeof fbq==='function') fbq('track','CompleteRegistration');
+  if(typeof fbq==='function') laTrack('CompleteRegistration');
   if(typeof window.clarity === 'function'){
     try { window.clarity('event','letter_completed'); } catch(e){}
   }
@@ -858,7 +886,7 @@ document.addEventListener('click', function(e){
   var a = e.target && e.target.closest ? e.target.closest('a[href*="whop.com/checkout"]') : null;
   if (!a) return;
   if (typeof gtag === 'function') gtag('event','checkout_click',{ link_url: a.href });
-  if (typeof fbq  === 'function') fbq('track','InitiateCheckout');
+  if (typeof fbq  === 'function') laTrack('InitiateCheckout');
 }, true);
 </script>
 
