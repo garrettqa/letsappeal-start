@@ -150,6 +150,11 @@ module.exports = async function handler(req, res) {
       }
       return res.status(502).json({ error: 'upstream' });
     }
+    // On ?debug=1 echo Meta's own acknowledgement, which carries events_received.
+    // A 200 alone does not prove Meta kept the event; events_received does.
+    if (req.query && req.query.debug === '1') {
+      return res.status(200).json({ ok: true, meta: text.slice(0, 300) });
+    }
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('capi_exception', err && err.message);
