@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Meta domain verification, added 2026-08-02. Required before Aggregated Event
+     Measurement can be configured, which is what decides WHICH of our five pixel events
+     wins for an iOS user who opted out of tracking. Without it Meta picks for us.
+     Must stay in <head> and must not be moved into JavaScript, or verification breaks. -->
+<meta name="facebook-domain-verification" content="mjeya5u0fbx720x12zei8a7w2onpbv" />
 <title>Let's Appeal, Fight a Health Insurance Denial</title>
 <meta name="description" content="Denied by your health insurer? Answer ten questions and Your First Letter gives you your appeal deadline as a real date, which rules govern your plan, and a draft appeal letter. Free, with nothing to upload.">
 <meta name="robots" content="index, follow">
