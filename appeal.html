@@ -502,6 +502,10 @@ function markStep(step, total){
   if(step <= TOOL_MAX_STEP) return;
   TOOL_MAX_STEP = step;
   if(typeof gtag === 'function') gtag('event','tool_step',{ step: step + 1, total: total });
+  // Filterable in Clarity: pull up every recording that stalled on a given question.
+  if(typeof window.clarity === 'function'){
+    try { window.clarity('set','furthest_question', String(step + 1)); } catch(e){}
+  }
 }
 
 function go(step){
@@ -696,6 +700,9 @@ function renderOut(){
   // only in GA4, so the ad set could never see it or learn from it. No parameters: the
   // denial_reason and plan_source above go to Google only and must never reach Meta.
   if(typeof fbq==='function') fbq('track','CompleteRegistration');
+  if(typeof window.clarity === 'function'){
+    try { window.clarity('event','letter_completed'); } catch(e){}
+  }
 }
 
 function d0(d){ return d && d.rule ? d.rule.note : 'Confirm every date against the notice you received.'; }
@@ -747,6 +754,14 @@ renderProg();
   function send(name, params){
     if (typeof gtag === 'function') gtag('event', name, params);
   }
+
+  // Clarity gets the same signals as filterable dimensions and events, so recordings can be
+  // narrowed to "scrolled past halfway then left" instead of scrubbing the whole list.
+  // Names only, no personal data, same rule as everything else here.
+  function clar(kind, a, b){
+    if (typeof window.clarity !== 'function') return;
+    try { window.clarity(kind, a, b); } catch (e) {}
+  }
   function once(key, name, params){
     if (fired[key]) return;
     fired[key] = 1;
@@ -795,7 +810,7 @@ renderProg();
     if (!el) return;
     var cls = (typeof el.className === 'string') ? el.className : '';
     var primary = /startcta|btn-primary|kitcta/.test(cls);
-    if (primary) ctaClicked = true;
+    if (primary) { ctaClicked = true; clar('event', 'primary_cta_click'); }
     send('cta_click', {
       page: TAG,
       label: (el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60),
@@ -809,12 +824,20 @@ renderProg();
   function summary(){
     if (summarised) return;
     summarised = true;
+    var secsOnPage = Math.round((Date.now() - t0) / 1000);
     send('page_exit', {
       page: TAG,
       max_scroll: maxPct,
-      seconds: Math.round((Date.now() - t0) / 1000),
+      seconds: secsOnPage,
       cta_clicked: ctaClicked
     });
+    // Buckets rather than raw numbers: Clarity filters on exact values, so buckets are
+    // what actually make the segments usable.
+    clar('set', 'scroll_bucket', maxPct >= 90 ? '90-100' : maxPct >= 75 ? '75-89'
+      : maxPct >= 50 ? '50-74' : maxPct >= 25 ? '25-49' : '0-24');
+    clar('set', 'dwell_bucket', secsOnPage >= 120 ? '120s+' : secsOnPage >= 60 ? '60-119s'
+      : secsOnPage >= 30 ? '30-59s' : secsOnPage >= 15 ? '15-29s' : 'under-15s');
+    clar('set', 'clicked_cta', ctaClicked ? 'yes' : 'no');
   }
   window.addEventListener('pagehide', summary);
   document.addEventListener('visibilitychange', function(){
