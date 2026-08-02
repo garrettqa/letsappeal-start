@@ -126,8 +126,15 @@ module.exports = async function handler(req, res) {
     });
     const text = await r.text();
     if (!r.ok) {
-      // Log for us, but never surface Meta's error to the visitor's browser.
       console.error('capi_upstream_error', r.status, text.slice(0, 500));
+      // Meta's own error text is returned ONLY when ?debug=1 is passed, because
+      // debugging this blind is otherwise impossible on a serverless function.
+      // The token is stripped first as a belt-and-braces measure: Meta does not echo
+      // it back today, but this must never be the reason a secret leaks.
+      if (req.query && req.query.debug === '1') {
+        const safe = text.split(token).join('[REDACTED]').slice(0, 600);
+        return res.status(502).json({ error: 'upstream', status: r.status, meta: safe });
+      }
       return res.status(502).json({ error: 'upstream' });
     }
     return res.status(200).json({ ok: true });
