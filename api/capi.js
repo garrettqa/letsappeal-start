@@ -137,16 +137,7 @@ module.exports = async function handler(req, res) {
       // it back today, but this must never be the reason a secret leaks.
       if (req.query && req.query.debug === '1') {
         const safe = text.split(token).join('[REDACTED]').slice(0, 600);
-        // Shape only, never the value: enough to tell a truncated or wrong-format
-        // paste from a genuinely rejected token.
-        return res.status(502).json({
-          error: 'upstream',
-          status: r.status,
-          meta: safe,
-          token_len: token.length,
-          token_prefix_ok: token.slice(0, 2) === 'EA',
-          token_had_whitespace: rawToken !== token,
-        });
+        return res.status(502).json({ error: 'upstream', status: r.status, meta: safe });
       }
       return res.status(502).json({ error: 'upstream' });
     }
