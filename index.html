@@ -432,6 +432,24 @@
   @media(max-width:600px){.kittitle{font-size:24px}.kitband{padding:40px 0}}
 
   /* ---------- Your First Letter, primary CTA ---------- */
+  /* hero ask, added 2026-08-02 */
+  .heroask { font-size: 16.5px; color: var(--body); margin-bottom: 14px; max-width: 44ch; }
+  .herocapture { margin-bottom: 14px; }
+  .herocapture label { font-size: 13px; }
+  .herosecondary { margin-bottom: 14px; }
+  a.startlink {
+    display: inline-block; font-size: 16px; font-weight: 600; color: var(--ink);
+    text-decoration: none; border-bottom: 2px solid var(--marker); padding-bottom: 2px;
+  }
+  a.startlink:hover { border-bottom-color: var(--ink); }
+  a.startlink:focus-visible { outline: 3px solid var(--marker); outline-offset: 3px; }
+  /* Stack the field and button on a phone. Side by side at 390px leaves the input
+     too narrow to read a typed address in, which is where this traffic actually is. */
+  @media (max-width: 560px) {
+    .herocapture .field-row { flex-direction: column; }
+    .herocapture .field-row button.cta { width: 100%; }
+  }
+
   a.startcta { display: inline-block; padding: 16px 28px; font-size: 17px; font-weight: 700;
     font-family: inherit; color: var(--paper); background: var(--ink); border: 2px solid var(--ink);
     border-radius: 6px; text-decoration: none; transition: background 0.15s ease; }
@@ -484,8 +502,27 @@
         <h1>Your first letter, <span class="hl">written today.</span></h1>
         <p class="lede">Ten questions about the notice they sent you. You get your appeal deadline as an actual date, which rules really govern your plan, and a draft letter built around the exact reason they gave.</p>
 
-        <a class="startcta" href="/appeal.html">Start Your First Letter</a>
-        <p class="startnote">We never ask you to upload or paste your denial letter. You read it, you answer questions about it, and everything you type stays in your browser. Already appealed once? It handles that too, and it changes what the letter argues.</p>
+        <!-- Hero ask, restructured 2026-08-02.
+             Clarity's first 23 sessions: 1.04 pages per session, 28% average scroll, 22 active
+             seconds, and zero rage or dead clicks. So people arrive, genuinely read a quarter of
+             the page, and leave. Not a broken page and not accidental taps: the ask was simply too
+             big for the attention on offer, and the guide form was sitting at roughly 70% down the
+             page where nobody at 28% scroll ever saw it.
+             The small ask now comes first. The tool is still one tap away and still the headline
+             promise, so the page still matches what the ad said. Revert is this block alone. -->
+        <p class="heroask">Not ready to answer ten questions? Start with the free written guide to reading a denial letter. We will email it to you now.</p>
+
+        <form class="capture herocapture" id="signup-form-hero" novalidate data-clarity-mask="true">
+          <label for="email-hero">Email address</label>
+          <div class="field-row">
+            <input type="email" id="email-hero" name="email" placeholder="you@example.com" required autocomplete="email">
+            <button type="submit" class="cta">Send me the free guide</button>
+          </div>
+          <div class="form-msg" role="status" aria-live="polite"></div>
+        </form>
+
+        <p class="herosecondary"><a class="startlink" href="/appeal.html">Or answer the ten questions now and get your draft letter &rarr;</a></p>
+        <p class="startnote">We never ask you to upload or paste your denial letter. You read it, you answer questions about it, and everything you type stays in your browser.</p>
       </div>
 
       <div class="letter-stage" aria-hidden="true">
@@ -703,6 +740,7 @@ function wireForm(formId) {
   });
 }
 
+wireForm('signup-form-hero');
 wireForm('signup-form-bottom');
 </script>
 
