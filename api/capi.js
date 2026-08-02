@@ -66,7 +66,11 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'method_not_allowed' });
   }
 
-  const token = process.env.META_CAPI_TOKEN;
+  // Defensive clean-up. Meta returns "Cannot parse access token" if the value carries
+  // a trailing newline, stray whitespace, or wrapping quotes, all of which are easy to
+  // pick up when copying a token into a dashboard field. Seen for real on 2026-08-02.
+  const rawToken = process.env.META_CAPI_TOKEN;
+  const token = rawToken ? rawToken.trim().replace(/^["']|["']$/g, '') : rawToken;
   if (!token) {
     // Not configured yet. Fail quietly with 204 so the site never shows an error to a
     // visitor because of a missing analytics secret.
@@ -133,7 +137,16 @@ module.exports = async function handler(req, res) {
       // it back today, but this must never be the reason a secret leaks.
       if (req.query && req.query.debug === '1') {
         const safe = text.split(token).join('[REDACTED]').slice(0, 600);
-        return res.status(502).json({ error: 'upstream', status: r.status, meta: safe });
+        // Shape only, never the value: enough to tell a truncated or wrong-format
+        // paste from a genuinely rejected token.
+        return res.status(502).json({
+          error: 'upstream',
+          status: r.status,
+          meta: safe,
+          token_len: token.length,
+          token_prefix_ok: token.slice(0, 2) === 'EA',
+          token_had_whitespace: rawToken !== token,
+        });
       }
       return res.status(502).json({ error: 'upstream' });
     }
