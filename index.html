@@ -514,12 +514,23 @@
            with the letter in their hands. Swapped in, not added, so the CTA above it
            does not move down the page. eager + explicit width/height because this is
            above the fold and must not shift the layout as it loads. -->
+      <!-- <picture> rather than a single srcset, deliberately. This photo is the largest
+           element on the page, so it is what LCP is measured against, and this is a paid
+           traffic landing page where that feeds back into both bounce and ad cost.
+           On a phone the slot is only about 345 CSS px. A 3x screen asks for ~1035px of
+           real pixels, so a plain srcset hands it the 1200 file at 234KB. The media query
+           caps phones at the 900 file, 139KB, which is indistinguishable at that display
+           size. Desktop keeps the 1200 because it genuinely shows the photo at 488px. -->
       <figure class="herophoto">
-        <img src="/photo-kitchen-1200.jpg"
-             srcset="/photo-kitchen-600.jpg 600w, /photo-kitchen-1200.jpg 1200w"
-             sizes="(max-width: 860px) 92vw, 44vw"
-             width="1200" height="1440" loading="eager" decoding="async"
-             alt="A woman in her fifties sitting at a kitchen table in morning light, reading a letter from her insurer.">
+        <picture>
+          <source media="(max-width: 860px)" sizes="92vw"
+                  srcset="/photo-kitchen-600.jpg 600w, /photo-kitchen-900.jpg 900w">
+          <img src="/photo-kitchen-1200.jpg"
+               srcset="/photo-kitchen-900.jpg 900w, /photo-kitchen-1200.jpg 1200w"
+               sizes="44vw"
+               width="1200" height="1440" loading="eager" decoding="async" fetchpriority="high"
+               alt="A woman in her fifties sitting at a kitchen table in morning light, reading a letter from her insurer.">
+        </picture>
         <figcaption class="photonote">The deadline is in there. It is almost never where you would look for it.</figcaption>
       </figure>
     </div>
@@ -650,11 +661,15 @@
     <div class="wrap">
       <div class="photoband">
         <figure>
-          <img src="/photo-table-1200.jpg"
-               srcset="/photo-table-600.jpg 600w, /photo-table-1200.jpg 1200w"
-               sizes="(max-width: 860px) 340px, 34vw"
-               width="1200" height="1499" loading="lazy" decoding="async"
-               alt="A man in his sixties at a dining table, going through a spread of insurance paperwork.">
+          <picture>
+            <source media="(max-width: 860px)" sizes="340px"
+                    srcset="/photo-table-600.jpg 600w, /photo-table-900.jpg 900w">
+            <img src="/photo-table-1200.jpg"
+                 srcset="/photo-table-900.jpg 900w, /photo-table-1200.jpg 1200w"
+                 sizes="34vw"
+                 width="1200" height="1499" loading="lazy" decoding="async"
+                 alt="A man in his sixties at a dining table, going through a spread of insurance paperwork.">
+          </picture>
         </figure>
         <div>
           <h2>It is never just one letter</h2>
@@ -802,11 +817,15 @@
     <div class="wrap">
       <div class="photoband flip">
         <figure>
-          <img src="/photo-hands-1200.jpg"
-               srcset="/photo-hands-600.jpg 600w, /photo-hands-1200.jpg 1200w"
-               sizes="(max-width: 860px) 340px, 34vw"
-               width="1200" height="1499" loading="lazy" decoding="async"
-               alt="Close overhead view of a pair of older hands holding an opened letter above a wooden table.">
+          <picture>
+            <source media="(max-width: 860px)" sizes="340px"
+                    srcset="/photo-hands-600.jpg 600w, /photo-hands-900.jpg 900w">
+            <img src="/photo-hands-1200.jpg"
+                 srcset="/photo-hands-900.jpg 900w, /photo-hands-1200.jpg 1200w"
+                 sizes="34vw"
+                 width="1200" height="1499" loading="lazy" decoding="async"
+                 alt="Close overhead view of a pair of older hands holding an opened letter above a wooden table.">
+          </picture>
         </figure>
         <div>
           <h2>Nothing to upload</h2>
