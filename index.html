@@ -225,79 +225,7 @@
   .form-msg.ok { display: block; background: var(--tint); color: var(--ink); }
   .form-msg.err { display: block; background: #FBEAEA; color: #8A2B2B; }
 
-  /* ---------- the letter artifact ---------- */
-  .letter-stage { position: relative; }
-  .letter {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    box-shadow: 0 12px 32px rgba(27, 42, 74, 0.12), 0 2px 6px rgba(27, 42, 74, 0.08);
-    padding: 32px 30px;
-    font-family: 'Courier Prime', monospace;
-    font-size: 13.5px;
-    line-height: 1.75;
-    color: #2B2B2B;
-    transform: rotate(-0.6deg);
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  .letter .lh {
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-    font-size: 12.5px;
-  }
-  .letter .dim { color: #9A9A94; }
-  .letter p { margin-bottom: 12px; }
-
-  .mark {
-    position: relative;
-    white-space: nowrap;
-  }
-  .mark::before {
-    content: "";
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    top: 8%;
-    bottom: 4%;
-    background: var(--marker);
-    z-index: -1;
-    transform-origin: left center;
-    transform: scaleX(0);
-    animation: sweep 0.7s ease-out forwards;
-  }
-  .mark-1::before { animation-delay: 0.5s; }
-  .mark-2::before { animation-delay: 1.1s; }
-  .mark-3::before { animation-delay: 1.7s; }
-  @keyframes sweep { to { transform: scaleX(1); } }
-
-  .annot {
-    position: absolute;
-    font-family: 'Public Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink);
-    background: var(--paper);
-    border: 1.5px solid var(--ink);
-    border-radius: 20px;
-    padding: 5px 12px;
-    box-shadow: 0 2px 8px rgba(27, 42, 74, 0.15);
-    opacity: 0;
-    animation: pop 0.4s ease-out forwards;
-  }
-  .annot-1 { top: 18%; right: -8px; animation-delay: 0.9s; }
-  .annot-2 { top: 47%; left: -14px; animation-delay: 1.5s; }
-  .annot-3 { bottom: 12%; right: 2px; animation-delay: 2.1s; }
-  @keyframes pop {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .mark::before { animation: none; transform: scaleX(1); }
-    .annot { animation: none; opacity: 1; }
     html { scroll-behavior: auto; }
   }
 
@@ -337,6 +265,97 @@
     border-radius: 4px;
     padding: 2px 8px;
     margin-bottom: 12px;
+  }
+
+  /* ---------- card illustrations ----------
+     Added 2026-08-03. The three cards were text only, which is most of why the page
+     read as a list. These are inline SVG rather than image files: no extra requests,
+     no layout shift while they load, and they recolour with the palette variables
+     instead of being baked into a PNG that would go stale the moment a colour changes.
+     Each one shows the actual thing the card describes, so they carry meaning rather
+     than being decoration. aria-hidden because the heading and body already say it. */
+  .cardart {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--tint);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- product showcase ----------
+     Two device frames showing the real tool: a question as it is actually asked, and
+     the results screen. Rendered in the TOOL's palette (warm paper and amber), not the
+     landing page's navy, because that is genuinely what a visitor sees one tap later.
+     Anything else would be a nice picture of a product that does not exist. */
+  .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .shot { text-align: center; }
+  .shot figcaption {
+    font-size: 15px; color: var(--muted); margin-top: 14px; max-width: 34ch;
+    margin-left: auto; margin-right: auto;
+  }
+  .shot figcaption b { color: var(--ink); font-weight: 700; display: block; margin-bottom: 2px; }
+  .phone {
+    display: block; width: 100%; max-width: 300px; height: auto; margin: 0 auto;
+    filter: drop-shadow(0 14px 34px rgba(27,42,74,.16)) drop-shadow(0 2px 5px rgba(27,42,74,.10));
+  }
+
+  /* ---------- photographs ----------
+     Added 2026-08-03. All three are portrait 4:5, so they pair beside a column of text
+     rather than running as wide bands. Every one carries explicit width and height and a
+     srcset, because a 1200px photo arriving late on a phone would shove the CTA down the
+     screen while somebody is reaching for it. Hero image is eager, the rest are lazy. */
+  .herophoto { margin: 0; }
+  .herophoto img {
+    display: block; width: 100%; height: auto; border-radius: 8px;
+    box-shadow: 0 18px 44px rgba(27,42,74,.18), 0 3px 8px rgba(27,42,74,.10);
+  }
+  .photonote {
+    font-size: 14.5px; color: var(--muted); margin-top: 13px; max-width: 42ch;
+    font-family: 'Source Serif 4', Georgia, serif; font-style: italic;
+  }
+
+  .photoband { display: grid; grid-template-columns: 0.8fr 1fr; gap: 52px; align-items: center; }
+  .photoband figure { margin: 0; }
+  .photoband img {
+    display: block; width: 100%; height: auto; border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(27,42,74,.16), 0 3px 7px rgba(27,42,74,.09);
+  }
+  .photoband h2 { margin-bottom: 12px; }
+  .photoband p { font-size: 17px; max-width: 46ch; }
+  /* Flipping the order alone would drop the photo into the 1fr column and render it
+     wider than the photo in the unflipped band. Mirror the track sizes too so both
+     photographs come out the same size down the page. */
+  .photoband.flip { grid-template-columns: 1fr 0.8fr; }
+  .photoband.flip figure { order: 2; }
+
+  @media (max-width: 860px) {
+    /* .flip must be repeated here. It is a two-class selector, so it outranks the plain
+       .photoband rule below and would keep its desktop two-column track on a phone. */
+    .photoband, .photoband.flip { grid-template-columns: 1fr; gap: 28px; }
+    .photoband.flip figure { order: 0; }
+    .photoband img { max-width: 340px; margin: 0 auto; }
+  }
+
+  /* ---------- free guide cover ---------- */
+  .guidegrid { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; }
+  .guidecover {
+    display: block; width: 100%; height: auto;
+    filter: drop-shadow(0 12px 28px rgba(27,42,74,.18)) drop-shadow(0 2px 4px rgba(27,42,74,.10));
+  }
+
+  @media (max-width: 860px) {
+    /* The frames stack on a phone, which pushed the second one (the letter, the thing
+       worth seeing) past where Clarity says the average visitor stops scrolling. Shrinking
+       them and closing the gap brings both back above that line. 240px is the floor: below
+       that the option text inside the frame stops being legible. */
+    .showcase { grid-template-columns: 1fr; gap: 26px; }
+    .phone { max-width: 240px; }
+    .shot figcaption { margin-top: 10px; font-size: 14.5px; }
+    .guidegrid { grid-template-columns: 1fr; gap: 26px; justify-items: center; text-align: center; }
+    .guidecover { max-width: 190px; }
+    .guidegrid .capture { text-align: left; }
   }
 
   /* ---------- honesty section ---------- */
@@ -405,8 +424,6 @@
   @media (max-width: 860px) {
     .hero { padding: 40px 0 56px; }
     .hero-grid { grid-template-columns: 1fr; gap: 44px; }
-    .letter { transform: rotate(0deg); }
-    .annot-2 { left: -4px; }
     .cols { grid-template-columns: 1fr; }
     .honesty { grid-template-columns: 1fr; }
     section { padding: 48px 0; }
@@ -414,8 +431,6 @@
   @media (max-width: 480px) {
     .field-row { flex-direction: column; }
     button.cta { width: 100%; }
-    .letter { padding: 24px 18px; font-size: 12.5px; }
-    .annot { font-size: 11.5px; }
   }
   footer .fprivacy { margin-top: 14px; }
   footer .fprivacy a { color: inherit; opacity: .75; text-decoration: underline; }
@@ -492,40 +507,258 @@
         <p class="startnote">We never ask you to upload or paste your denial letter. You read it, you answer questions about it, and everything you type stays in your browser. Already appealed once? It handles that too, and it changes what the letter argues.</p>
       </div>
 
-      <div class="letter-stage" aria-hidden="true">
-        <div class="letter">
-          <div class="lh">Notice of Adverse Benefit Determination</div>
-          <p class="dim">RE: Claim decision for services on file</p>
-          <p>Claim Number: <span class="mark mark-1">CLM-2026-084512</span></p>
-          <p>After review, this claim has been denied. Reason code 197: service determined not medically necessary under your plan.</p>
-          <p><span class="mark mark-2">You have the right to appeal this decision.</span> Your request must be received within the timeframe described below.</p>
-          <p>Appeals must be filed within <span class="mark mark-3">the period stated in this notice</span> of the date you received this letter.</p>
-          <p class="dim">For questions, contact Member Services at the number on your ID card.</p>
-        </div>
-        <div class="annot annot-1">the claim number</div>
-        <div class="annot annot-2">the appeal rights</div>
-        <div class="annot annot-3">the deadline lives here</div>
-      </div>
+      <!-- The CSS letter mock that used to sit here was doing two jobs: showing a real
+           denial letter, and teaching which parts matter. The phone frames further down
+           now teach that job better, using the actual tool. So this slot goes to the
+           photograph, which is the thing the mock could never be: a person at a table
+           with the letter in their hands. Swapped in, not added, so the CTA above it
+           does not move down the page. eager + explicit width/height because this is
+           above the fold and must not shift the layout as it loads. -->
+      <figure class="herophoto">
+        <img src="/photo-kitchen-1200.jpg"
+             srcset="/photo-kitchen-600.jpg 600w, /photo-kitchen-1200.jpg 1200w"
+             sizes="(max-width: 860px) 92vw, 44vw"
+             width="1200" height="1440" loading="eager" decoding="async"
+             alt="A woman in her fifties sitting at a kitchen table in morning light, reading a letter from her insurer.">
+        <figcaption class="photonote">The deadline is in there. It is almost never where you would look for it.</figcaption>
+      </figure>
     </div>
   </div>
 
-  <!-- ================= WHAT YOU GET ================= -->
+  <!-- ================= WHAT IT LOOKS LIKE =================
+       Added 2026-08-03. Until now nothing on this page showed the product, so a visitor
+       had to take the whole thing on faith before tapping. These two frames are drawn in
+       the tool's own palette (warm paper, amber) rather than this page's navy, because
+       that is what loads one tap later. The question, the four options and the results
+       headings are copied from appeal.html verbatim. If the tool's wording changes, this
+       has to change with it, or the page is showing something that no longer exists. -->
+  <section>
+    <div class="wrap">
+      <h2>This is the whole thing</h2>
+      <p class="sec-lede">No account, no upload, no paywall in the middle. Ten questions like the one on the left, and then the letter.</p>
+      <div class="showcase">
+
+        <figure class="shot">
+          <svg class="phone" viewBox="0 0 288 576" role="img" aria-label="The tool asking question four of ten, what reason does the letter give, with the denial reasons listed as options.">
+            <rect x="0" y="0" width="288" height="576" rx="36" fill="#1C1C1A"/>
+            <rect x="8" y="8" width="272" height="560" rx="30" fill="#F4F1EA"/>
+            <rect x="116" y="18" width="56" height="6" rx="3" fill="#DAD5C9"/>
+
+            <text x="32" y="48" font-family="'Source Serif 4',Georgia,serif" font-size="13" font-weight="600" fill="#1C1C1A">Your First Letter</text>
+
+            <g fill="#8A6D1F">
+              <rect x="32" y="64" width="19" height="3" rx="1.5"/><rect x="55" y="64" width="19" height="3" rx="1.5"/>
+              <rect x="78" y="64" width="19" height="3" rx="1.5"/>
+            </g>
+            <rect x="101" y="64" width="19" height="3" rx="1.5" fill="#E8B84B"/>
+            <g fill="#DAD5C9">
+              <rect x="124" y="64" width="19" height="3" rx="1.5"/><rect x="147" y="64" width="19" height="3" rx="1.5"/>
+              <rect x="170" y="64" width="19" height="3" rx="1.5"/><rect x="193" y="64" width="19" height="3" rx="1.5"/>
+              <rect x="216" y="64" width="19" height="3" rx="1.5"/><rect x="239" y="64" width="17" height="3" rx="1.5"/>
+            </g>
+
+            <text x="32" y="96" font-family="'Courier Prime',monospace" font-size="10" letter-spacing="1.2" fill="#6B675E">QUESTION 4 OF 10</text>
+            <text x="32" y="124" font-family="'Source Serif 4',Georgia,serif" font-size="19" font-weight="600" fill="#1C1C1A">What reason does the</text>
+            <text x="32" y="146" font-family="'Source Serif 4',Georgia,serif" font-size="19" font-weight="600" fill="#1C1C1A">letter give?</text>
+            <text x="32" y="168" font-family="'Public Sans',sans-serif" font-size="10.5" fill="#6B675E">Use the wording closest to what is printed.</text>
+
+            <g>
+              <rect x="30" y="184" width="228" height="52" rx="10" fill="#FBF9F4" stroke="#8A6D1F" stroke-width="2"/>
+              <text x="44" y="206" font-family="'Public Sans',sans-serif" font-size="13" font-weight="600" fill="#1C1C1A">Not medically necessary</text>
+              <text x="44" y="222" font-family="'Public Sans',sans-serif" font-size="10.5" fill="#6B675E">The most common, and most misunderstood</text>
+            </g>
+            <g>
+              <rect x="30" y="245" width="228" height="38" rx="10" fill="#FBF9F4" stroke="#DAD5C9"/>
+              <text x="44" y="269" font-family="'Public Sans',sans-serif" font-size="13" font-weight="600" fill="#1C1C1A">Experimental or investigational</text>
+            </g>
+            <g>
+              <rect x="30" y="292" width="228" height="52" rx="10" fill="#FBF9F4" stroke="#DAD5C9"/>
+              <text x="44" y="314" font-family="'Public Sans',sans-serif" font-size="13" font-weight="600" fill="#1C1C1A">Not a covered benefit</text>
+              <text x="44" y="330" font-family="'Public Sans',sans-serif" font-size="10.5" fill="#6B675E">Excluded under the plan</text>
+            </g>
+            <g>
+              <rect x="30" y="353" width="228" height="38" rx="10" fill="#FBF9F4" stroke="#DAD5C9"/>
+              <text x="44" y="377" font-family="'Public Sans',sans-serif" font-size="13" font-weight="600" fill="#1C1C1A">Out of network</text>
+            </g>
+            <g>
+              <rect x="30" y="400" width="228" height="52" rx="10" fill="#FBF9F4" stroke="#DAD5C9"/>
+              <text x="44" y="422" font-family="'Public Sans',sans-serif" font-size="13" font-weight="600" fill="#1C1C1A">Insufficient documentation</text>
+              <text x="44" y="438" font-family="'Public Sans',sans-serif" font-size="10.5" fill="#6B675E">Missing records or information</text>
+            </g>
+
+            <rect x="30" y="470" width="228" height="44" rx="10" fill="#1C1C1A"/>
+            <text x="144" y="497" text-anchor="middle" font-family="'Public Sans',sans-serif" font-size="14" font-weight="700" fill="#F4F1EA">Continue</text>
+            <text x="144" y="534" text-anchor="middle" font-family="'Public Sans',sans-serif" font-size="12" fill="#6B675E">Back</text>
+          </svg>
+          <figcaption><b>Ten questions about the notice</b>Every answer stays in your browser. Nothing is uploaded and nothing is stored.</figcaption>
+        </figure>
+
+        <figure class="shot">
+          <svg class="phone" viewBox="0 0 288 576" role="img" aria-label="The results screen showing the appeal deadline as a date, which rules govern the plan, and the draft appeal letter.">
+            <rect x="0" y="0" width="288" height="576" rx="36" fill="#1C1C1A"/>
+            <rect x="8" y="8" width="272" height="560" rx="30" fill="#F4F1EA"/>
+            <rect x="116" y="18" width="56" height="6" rx="3" fill="#DAD5C9"/>
+
+            <text x="32" y="52" font-family="'Source Serif 4',Georgia,serif" font-size="17" font-weight="600" fill="#1C1C1A">What you are dealing with</text>
+
+            <rect x="24" y="66" width="240" height="128" rx="12" fill="#FBF9F4" stroke="#DAD5C9"/>
+            <text x="40" y="90" font-family="'Courier Prime',monospace" font-size="9.5" letter-spacing="1.1" fill="#6B675E">YOUR DEADLINE</text>
+            <text x="40" y="112" font-family="'Source Serif 4',Georgia,serif" font-size="20" font-weight="700" fill="#1C1C1A">12 September 2026</text>
+            <rect x="40" y="120" width="150" height="7" rx="3.5" fill="#E8B84B" opacity=".55"/>
+            <text x="40" y="142" font-family="'Public Sans',sans-serif" font-size="10.5" fill="#6B675E">Work to 29 August. Records take longer</text>
+            <text x="40" y="155" font-family="'Public Sans',sans-serif" font-size="10.5" fill="#6B675E">than people expect.</text>
+            <path d="M40 166h208" stroke="#DAD5C9"/>
+            <text x="40" y="182" font-family="'Public Sans',sans-serif" font-size="11" fill="#1C1C1A">Self-funded employer plan, ERISA</text>
+
+            <rect x="24" y="206" width="240" height="46" rx="12" fill="#FBF9F4" stroke="#DAD5C9"/>
+            <text x="40" y="226" font-family="'Courier Prime',monospace" font-size="9.5" letter-spacing="1.1" fill="#6B675E">WHO REGULATES IT</text>
+            <text x="40" y="243" font-family="'Public Sans',sans-serif" font-size="11.5" font-weight="600" fill="#1C1C1A">US Department of Labor</text>
+
+            <text x="32" y="286" font-family="'Source Serif 4',Georgia,serif" font-size="17" font-weight="600" fill="#1C1C1A">Your draft appeal letter</text>
+            <rect x="24" y="300" width="240" height="176" rx="12" fill="#FFFFFF" stroke="#DAD5C9"/>
+            <g fill="#DAD5C9">
+              <rect x="40" y="318" width="80" height="4" rx="2"/>
+              <rect x="40" y="330" width="60" height="4" rx="2"/>
+              <rect x="40" y="352" width="208" height="4" rx="2"/>
+              <rect x="40" y="364" width="208" height="4" rx="2"/>
+              <rect x="40" y="376" width="176" height="4" rx="2"/>
+            </g>
+            <rect x="38" y="394" width="196" height="12" rx="3" fill="#E8B84B" opacity=".45"/>
+            <g fill="#DAD5C9">
+              <rect x="40" y="416" width="208" height="4" rx="2"/>
+              <rect x="40" y="428" width="208" height="4" rx="2"/>
+              <rect x="40" y="440" width="140" height="4" rx="2"/>
+            </g>
+            <path d="M40 460c8-6 13 4 20-2s10 3 17-2" stroke="#1C1C1A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+            <rect x="24" y="492" width="115" height="40" rx="10" fill="#1C1C1A"/>
+            <text x="81" y="517" text-anchor="middle" font-family="'Public Sans',sans-serif" font-size="12.5" font-weight="700" fill="#F4F1EA">Copy letter</text>
+            <rect x="149" y="492" width="115" height="40" rx="10" fill="none" stroke="#DAD5C9"/>
+            <text x="206" y="517" text-anchor="middle" font-family="'Public Sans',sans-serif" font-size="12.5" fill="#6B675E">Download</text>
+          </svg>
+          <figcaption><b>Then the letter, ready to send</b>Your deadline as a real date, the rules that actually govern your plan, and a draft built on the reason they gave.</figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE PILE =================
+       Sets up the three cards below it: this is the mess, those are the three things
+       pulled out of it. -->
   <section class="alt">
+    <div class="wrap">
+      <div class="photoband">
+        <figure>
+          <img src="/photo-table-1200.jpg"
+               srcset="/photo-table-600.jpg 600w, /photo-table-1200.jpg 1200w"
+               sizes="(max-width: 860px) 340px, 34vw"
+               width="1200" height="1499" loading="lazy" decoding="async"
+               alt="A man in his sixties at a dining table, going through a spread of insurance paperwork.">
+        </figure>
+        <div>
+          <h2>It is never just one letter</h2>
+          <p>By the time most people go looking for help there is a denial notice, an explanation of benefits, a bill that matches neither of them, and a phone number that goes nowhere. The ten questions exist to pull the three things that actually decide an appeal out of that pile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT YOU GET ================= -->
+  <section>
     <div class="wrap">
       <h2>What you walk away with</h2>
       <p class="sec-lede">Not a summary of your letter. The three things that decide whether an appeal even gets read, worked out from your own answers.</p>
       <div class="cols">
         <div class="card">
+          <!-- A calendar with both dates the card promises: the real deadline ringed in
+               ink, and the working target two weeks earlier under the highlighter. The
+               dotted line between them is the fortnight the copy tells people to keep. -->
+          <svg class="cardart" viewBox="0 0 320 132" role="img" aria-hidden="true">
+            <rect x="26" y="14" width="268" height="104" rx="7" fill="#FAFAF7" stroke="#D9D6CC"/>
+            <path d="M26 21a7 7 0 0 1 7-7h254a7 7 0 0 1 7 7v13H26z" fill="#1B2A4A"/>
+            <rect x="70" y="8" width="5" height="13" rx="2.5" fill="#1B2A4A"/>
+            <rect x="245" y="8" width="5" height="13" rx="2.5" fill="#1B2A4A"/>
+            <g fill="#D9D6CC">
+              <rect x="42" y="46" width="24" height="15" rx="3"/>
+              <rect x="76" y="46" width="24" height="15" rx="3"/>
+              <rect x="144" y="46" width="24" height="15" rx="3"/>
+              <rect x="178" y="46" width="24" height="15" rx="3"/>
+              <rect x="212" y="46" width="24" height="15" rx="3"/>
+              <rect x="246" y="46" width="24" height="15" rx="3"/>
+              <rect x="42" y="70" width="24" height="15" rx="3"/>
+              <rect x="76" y="70" width="24" height="15" rx="3"/>
+              <rect x="110" y="70" width="24" height="15" rx="3"/>
+              <rect x="178" y="70" width="24" height="15" rx="3"/>
+              <rect x="212" y="70" width="24" height="15" rx="3"/>
+              <rect x="246" y="70" width="24" height="15" rx="3"/>
+              <rect x="42" y="94" width="24" height="15" rx="3"/>
+              <rect x="76" y="94" width="24" height="15" rx="3"/>
+              <rect x="110" y="94" width="24" height="15" rx="3"/>
+              <rect x="144" y="94" width="24" height="15" rx="3"/>
+              <rect x="178" y="94" width="24" height="15" rx="3"/>
+            </g>
+            <rect x="110" y="44" width="24" height="19" rx="3" fill="#FFE566"/>
+            <path d="M134 78h70" stroke="#6B7487" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <rect x="212" y="94" width="24" height="15" rx="3" fill="#1B2A4A"/>
+            <rect x="206" y="88" width="36" height="27" rx="6" fill="none" stroke="#1B2A4A" stroke-width="2"/>
+          </svg>
           <span class="tag">DEADLINE</span>
           <h3>Your deadline as a date</h3>
           <p>Most appeals are lost on the calendar, not on the merits. Give us the date printed on your notice and you get the day yours is due, plus a working target two weeks earlier, because records and signatures always take longer than people expect.</p>
         </div>
         <div class="card">
+          <!-- One denial, four plans, four different regulators. The highlighted path is
+               the point of the card: the same letter goes to a different place depending
+               on how you get your insurance, and picking wrong wastes the appeal. -->
+          <svg class="cardart" viewBox="0 0 320 132" role="img" aria-hidden="true">
+            <rect x="16" y="54" width="62" height="24" rx="6" fill="#1B2A4A"/>
+            <rect x="26" y="61" width="42" height="4" rx="2" fill="#FAFAF7" opacity=".85"/>
+            <rect x="26" y="69" width="26" height="3" rx="1.5" fill="#FAFAF7" opacity=".5"/>
+            <path d="M78 66h22M100 66V26h20M100 66v26h20M100 66h20M100 66v40h20"
+                  stroke="#D9D6CC" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M78 66h22M100 66V26h20" stroke="#8A6D1F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <g fill="#FAFAF7" stroke="#D9D6CC">
+              <rect x="120" y="80" width="86" height="22" rx="6"/>
+              <rect x="120" y="54" width="86" height="22" rx="6"/>
+              <rect x="120" y="94" width="86" height="22" rx="6"/>
+            </g>
+            <g fill="#D9D6CC">
+              <rect x="130" y="63" width="52" height="4" rx="2"/>
+              <rect x="130" y="103" width="44" height="4" rx="2"/>
+            </g>
+            <rect x="120" y="15" width="86" height="22" rx="6" fill="#FFE566" stroke="#8A6D1F"/>
+            <rect x="130" y="24" width="56" height="4" rx="2" fill="#1B2A4A" opacity=".55"/>
+            <path d="M206 26h30" stroke="#8A6D1F" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="252" cy="26" r="15" fill="none" stroke="#1B2A4A" stroke-width="2"/>
+            <path d="M245 26l5 5 10-10" stroke="#1B2A4A" stroke-width="2.5" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <span class="tag">RULES</span>
           <h3>Which rulebook governs you</h3>
           <p>Medicare, Medicaid, a marketplace plan and a self-funded employer plan all follow different rules and answer to different regulators. Getting this wrong sends people to an agency that has no power to help them, and it is the single most common mistake.</p>
         </div>
         <div class="card">
+          <!-- The finished letter with its attachments behind it. The highlighted line is
+               the sentence built from the denial reason, which is the part of the letter
+               that actually does the work, and the clip is "what to attach, in order". -->
+          <svg class="cardart" viewBox="0 0 320 132" role="img" aria-hidden="true">
+            <rect x="96" y="20" width="140" height="104" rx="5" fill="#FAFAF7" stroke="#D9D6CC" opacity=".65"/>
+            <rect x="88" y="14" width="140" height="104" rx="5" fill="#FAFAF7" stroke="#D9D6CC" opacity=".8"/>
+            <rect x="80" y="8" width="140" height="108" rx="5" fill="#FAFAF7" stroke="#D9D6CC"/>
+            <rect x="94" y="22" width="56" height="6" rx="3" fill="#1B2A4A"/>
+            <rect x="94" y="34" width="34" height="4" rx="2" fill="#D9D6CC"/>
+            <rect x="92" y="48" width="116" height="13" rx="3" fill="#FFE566"/>
+            <g fill="#D9D6CC">
+              <rect x="94" y="68" width="112" height="4" rx="2"/>
+              <rect x="94" y="78" width="112" height="4" rx="2"/>
+              <rect x="94" y="88" width="86" height="4" rx="2"/>
+            </g>
+            <path d="M94 104c8-7 13 4 20-2s10 3 17-2" stroke="#1B2A4A" stroke-width="2"
+                  fill="none" stroke-linecap="round"/>
+            <path d="M232 34v-8a11 11 0 0 0-22 0v34a17 17 0 0 0 34 0V32"
+                  stroke="#8A6D1F" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </svg>
           <span class="tag">LETTER</span>
           <h3>A letter you can send</h3>
           <p>Built around the specific reason printed on your notice, in your own words, demanding the documents that reason entitles you to. Plus what to attach, in what order, and how to send it so the date is provable.</p>
@@ -535,7 +768,7 @@
   </section>
 
   <!-- ================= HONESTY ================= -->
-  <section>
+  <section class="alt">
     <div class="wrap">
       <h2>What this is, and what it isn't</h2>
       <p class="sec-lede">No hype and no scare tactics. Here's the straight version.</p>
@@ -562,6 +795,27 @@
     </div>
   </section>
 
+  <!-- ================= NOTHING TO UPLOAD =================
+       Every claim in this copy is checked against privacy.html. If that policy changes,
+       this changes with it. Do not add a claim here that the policy does not make. -->
+  <section>
+    <div class="wrap">
+      <div class="photoband flip">
+        <figure>
+          <img src="/photo-hands-1200.jpg"
+               srcset="/photo-hands-600.jpg 600w, /photo-hands-1200.jpg 1200w"
+               sizes="(max-width: 860px) 340px, 34vw"
+               width="1200" height="1499" loading="lazy" decoding="async"
+               alt="Close overhead view of a pair of older hands holding an opened letter above a wooden table.">
+        </figure>
+        <div>
+          <h2>Nothing to upload</h2>
+          <p>You keep your letter. You read it, and you answer questions about it. Every answer stays on your own device and is gone when you close the tab. We never ask for your claim number, your diagnosis, or the name of your insurer, which means we never have them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= BOTTOM CTA ================= -->
   <section class="alt bottom-cta">
     <div class="wrap">
@@ -576,6 +830,32 @@
 <!-- ================= THE GUIDE, NOW SECONDARY ================= -->
 <section id="free-guide">
   <div class="wrap">
+    <div class="guidegrid">
+    <!-- Cover for the real PDF that Kit sends. Drawn rather than photographed so the
+         title stays in sync by editing text, not by re-exporting an image. The marked
+         lines are the same three things the tool marks up in the hero letter. -->
+    <svg class="guidecover" viewBox="0 0 220 285" role="img" aria-label="Cover of the free guide, Module 0, How to Read a Denial Letter.">
+      <rect x="6" y="4" width="208" height="277" rx="4" fill="#E4E0D6"/>
+      <rect x="0" y="0" width="208" height="277" rx="4" fill="#FAFAF7" stroke="#D9D6CC"/>
+      <rect x="0" y="0" width="8" height="277" rx="4" fill="#1B2A4A"/>
+      <text x="28" y="34" font-family="'Source Serif 4',Georgia,serif" font-size="12" font-weight="600" fill="#1B2A4A">Let's Appeal</text>
+      <path d="M28 44h44" stroke="#D9D6CC"/>
+      <text x="28" y="72" font-family="'Courier Prime',monospace" font-size="10" letter-spacing="1.4" fill="#6B7487">MODULE 0</text>
+      <text x="28" y="104" font-family="'Source Serif 4',Georgia,serif" font-size="23" font-weight="700" fill="#1B2A4A">How to Read</text>
+      <text x="28" y="130" font-family="'Source Serif 4',Georgia,serif" font-size="23" font-weight="700" fill="#1B2A4A">a Denial Letter</text>
+      <rect x="28" y="146" width="92" height="3" rx="1.5" fill="#8A6D1F"/>
+      <rect x="28" y="172" width="152" height="86" rx="3" fill="#FFFFFF" stroke="#D9D6CC"/>
+      <rect x="38" y="184" width="58" height="4" rx="2" fill="#1B2A4A"/>
+      <g fill="#D9D6CC">
+        <rect x="38" y="198" width="132" height="3.5" rx="1.75"/>
+        <rect x="38" y="222" width="132" height="3.5" rx="1.75"/>
+        <rect x="38" y="244" width="96" height="3.5" rx="1.75"/>
+      </g>
+      <rect x="36" y="205" width="74" height="9" rx="2" fill="#FFE566"/>
+      <rect x="36" y="229" width="104" height="9" rx="2" fill="#FFE566"/>
+      <text x="150" y="34" font-family="'Public Sans',sans-serif" font-size="10" font-weight="700" fill="#8A6D1F">FREE</text>
+    </svg>
+    <div>
     <h2>Would rather just read something first?</h2>
     <p class="sec-lede">Module 0, "How to Read a Denial Letter", is the free written guide. It teaches you to read the letter like a map, and there are no questions to answer. We will email it to you.</p>
     <!-- data-clarity-mask: the only text input on the site outside the tool. Masked at the
@@ -591,6 +871,8 @@
       <div class="form-msg" role="status" aria-live="polite"></div>
       <p class="form-note">No spam. Unsubscribe anytime. The email comes from hello@letsappeal.com, so check your junk folder if you don't see it.</p>
     </form>
+    </div>
+    </div>
   </div>
 </section>
 
