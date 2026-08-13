@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Let's Appeal">
+  <rect width="512" height="512" rx="92" fill="#1B2A4A"/>
+  <rect x="87" y="279" width="338" height="77" rx="3" fill="#FFE566" transform="rotate(-4 256 317)"/>
+  <path d="M256 118 L352 386 L316 386 L292 316 L220 316 L196 386 L160 386 Z M232 280 L280 280 L256 196 Z" fill="#FAFAF7"/>
+</svg>
