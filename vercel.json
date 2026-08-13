@@ -1,16 +1,3 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "routes": [
-    {
-      "src": "/",
-      "has": [{ "type": "host", "value": "letsappeal.com" }],
-      "dest": "/home.html"
-    },
-    {
-      "src": "/",
-      "has": [{ "type": "host", "value": "www.letsappeal.com" }],
-      "dest": "/home.html"
-    },
-    { "handle": "filesystem" }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }
