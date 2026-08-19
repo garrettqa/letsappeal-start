@@ -10,7 +10,7 @@ Read that line again before changing anything, because it was wrong in this READ
 | `start.letsappeal.com/` | `index.html` | The ad landing page. Meta ads point here |
 | `start.letsappeal.com/appeal.html` | `appeal.html` | Your First Letter, the free tool. Google ads point here |
 | `start.letsappeal.com/privacy.html` | `privacy.html` | Privacy policy |
-| `start.letsappeal.com/guarantee.html` | `guarantee.html` | 14-day guarantee |
+| `start.letsappeal.com/guarantee.html` | `guarantee.html` | 60-day guarantee |
 
 ## letsappeal.com is a different site, in a different repo
 
